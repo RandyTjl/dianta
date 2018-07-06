@@ -98,9 +98,9 @@
           'type':'post',
           success:function (msg) {
               if(msg == 1){
-                  window.href.location="";
+                  window.location.href="/";
               }else{
-                  
+  
               }
           }
       })

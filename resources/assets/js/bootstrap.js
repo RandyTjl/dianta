@@ -11,7 +11,7 @@ window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
 
 /**
- * Vue is a modern JavaScript library for building interactive web interfaces
+ * Vue is a modern JavaScript library for building interactive Web interfaces
  * using reactive data binding and reusable components. Vue's API is clean
  * and simple, leaving you to focus on building your next great project.
  */
@@ -34,7 +34,7 @@ Vue.http.interceptors.push((request, next) => {
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
- * allows your team to easily build robust real-time web applications.
+ * allows your team to easily build robust real-time Web applications.
  */
 
 // import Echo from "laravel-echo"

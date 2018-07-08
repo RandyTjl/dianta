@@ -28,26 +28,26 @@
     <div class="card-body login-card-body">
       <p class="login-box-msg">Sign in to start your session</p>
 
-      <form action="" method="post">
+      <form action="#" method="post">
         <div class="form-group has-feedback">
-          <input type="email" class="form-control" placeholder="邮箱">
+          <input type="email" name="email" class="form-control" placeholder="邮箱">
           <span class="fa fa-envelope form-control-feedback"></span>
         </div>
         <div class="form-group has-feedback">
-          <input type="password" class="form-control" placeholder="密码">
+          <input type="password" name="password" class="form-control" placeholder="密码">
           <span class="fa fa-lock form-control-feedback"></span>
         </div>
         <div class="row">
           <div class="col-8">
             <div class="checkbox icheck">
               <label>
-                <input type="checkbox"> 记住我
+                <input type="checkbox" name="remember_token"> 记住我
               </label>
             </div>
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat" id="login">登录</button>
+            <button type="button" class="btn btn-primary btn-block btn-flat" id="login">登录</button>
           </div>
           <!-- /.col -->
         </div>
@@ -91,16 +91,17 @@
     })
 
     $("#login").on('click',function () {
-      $data = $(form).serialize();
+      var data = $("form").serialize();
       $.ajax({
           'url':"/auth/login",
           'data':data,
           'type':'post',
           success:function (msg) {
-              if(msg == 1){
+              console.log(msg);
+              if(msg.code == 200){
                   window.location.href="/";
               }else{
-  
+                  alert(msg.message);
               }
           }
       })

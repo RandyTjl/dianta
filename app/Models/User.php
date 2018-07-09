@@ -36,4 +36,9 @@ class User extends Authenticatable
         $user = self::where(['email'=>$email])->first();
         return $user;
     }
+
+    public function getUserById($user_id){
+        $user = self::where(['id'=>$user_id])->first();
+        return $user;
+    }
 }

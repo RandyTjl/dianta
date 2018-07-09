@@ -8,11 +8,15 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Models\User;
+use Illuminate\Support\Facades\Session;
+
 class AccountController extends BaseController
 {
 
-    public function index(){
-        return view('index/index');
+    public function show(){
+        $user_id = Session::get('user_id');
+        $user = User::getUserById($user_id);
     }
 
 }

@@ -15,14 +15,18 @@ Route::group(['middleware' => 'Web','namespace'=>'Web'], function () {
     Route::get('/login', function () {
         return view('auth/login');
     });
+    Route::get('/register', function () {
+        return view('auth/register');
+    });
 
     Route::post('/auth/login',"AuthController@login");
+    Route::get('/auth/test',"AuthController@test");
 
     Route::group(['middleware' => 'auth'],function (){
         Route::get('/',function(){
             return view('index/index');
         });
-        Route::get('/account',"AccountController@index");
+        Route::resource('/account',"AccountController@index");
 
 
     });

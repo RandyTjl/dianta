@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\UserRole;
 use App\Models\MenuRole;
 use App\models\Menu;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 
 
@@ -16,6 +17,7 @@ class AuthController extends BaseController
 {
 
     public function login(Request $request){
+
         $email = $request->get('email');
         $password = $request->get('password');
         $remember_token = empty($request->get('remember_token'))? false : true;
@@ -51,4 +53,5 @@ class AuthController extends BaseController
         $menus = left_menu_tree($menus);
         return $menus;
     }
+
 }

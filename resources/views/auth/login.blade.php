@@ -68,7 +68,7 @@
         <a href="#">忘记密码</a>
       </p>
       <p class="mb-0">
-        <a href="register.html" class="text-center">注册账号</a>
+        <a href="/register" class="text-center">注册账号</a>
       </p>
     </div>
     <!-- /.login-card-body -->

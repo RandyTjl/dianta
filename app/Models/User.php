@@ -37,7 +37,7 @@ class User extends Authenticatable
         return $user;
     }
 
-    public function getUserById($user_id){
+    public static function getUserById($user_id){
         $user = self::where(['id'=>$user_id])->first();
         return $user;
     }

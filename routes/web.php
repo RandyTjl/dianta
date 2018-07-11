@@ -22,11 +22,12 @@ Route::group(['middleware' => 'Web','namespace'=>'Web'], function () {
     Route::post('/auth/login',"AuthController@login");
     Route::get('/auth/test',"AuthController@test");
 
-    Route::group(['middleware' => 'auth'],function (){
+    Route::group(['middleware' => 'guest'],function (){
         Route::get('/',function(){
             return view('index/index');
         });
-        Route::resource('/account',"AccountController@index");
+        Route::resource('/account',"AccountController");
+        Route::resource('/power',"PowerController");
 
 
     });

@@ -8,17 +8,20 @@
 
 function createLeftMenu($datas,$level=0 ){
     $menu_id = empty($_GET['menu_id'])?'1':$_GET['menu_id'];
-
+    $menu_parent_id = get_top_menu_id($datas,$menu_id);
+    /*if(\Illuminate\Support\Facades\Session::get('menu_parent_id') == $menu_parent_id){
+        return \Illuminate\Support\Facades\Session::get('left_menu');
+    }*/
 
     $html = '';
-    //$left_class = "padding-left:".(8*($level+1))."px";
-    //$size = "font-size:".(18-$level)."px";
+    $left_class = "padding-left:".(8*($level))."px";
+    $size = "font-size:".(18-$level)."px";
 
     if(is_array($datas)){
         if($level == 0 ){
             $arrays = [];
             foreach ($datas as $data){
-                if($data['id'] == $menu_id){
+                if($data['id'] == $menu_parent_id){
                     $arrays[] = $data;
                 }
             }
@@ -26,10 +29,14 @@ function createLeftMenu($datas,$level=0 ){
             $arrays = $datas;
         }
         foreach ($arrays as $array){
+            $active = '';
+            if(check_menu_exist($array,$menu_id)){
+                $active = "active";
+            }
             if(isset($array['_chirld'])){
                 //$num = count($array['_chirld']);
-                $html .= '<li class="nav-item has-treeview menu-open">
-                            <a href="'.$array['url'].'?menu_id='.$array['id'].'" class="nav-link active">
+                $html .= '<li class="nav-item has-treeview menu-open" style="'.$left_class.'">
+                            <a href="'.$array['url'].'?menu_id='.$array['id'].'" class="nav-link '.$active.'" style="'.$size.'">
                               <i class="nav-icon fa '.$array['icon'].'"></i>
                               <p>
                                 '.$array['menu_name'].'
@@ -42,8 +49,8 @@ function createLeftMenu($datas,$level=0 ){
 
                 $html .= '</ul></li>';
             }else {
-                $html .= '<li class="nav-item">
-                <a href="' . $array['url'] . '?menu_id=' . $array['id'] . '" class="nav-link active">
+                $html .= '<li class="nav-item" style="'.$left_class.'">
+                <a href="' . $array['url'] . '?menu_id=' . $array['id'] . '" class="nav-link '.$active.'" style="'.$size.'">
                   <i class="fa  ' . $array['icon'] . ' nav-icon"></i>
                    ' . $array['menu_name'] . '
                 </a>
@@ -52,6 +59,9 @@ function createLeftMenu($datas,$level=0 ){
             }
         }
     }
+    /*\Illuminate\Support\Facades\Session::put('menu_parent_id',$menu_parent_id);
+    \Illuminate\Support\Facades\Session::put('left_menu',$html);
+    \Illuminate\Support\Facades\Session::save();*/
     return $html;
 }
 
@@ -107,3 +117,30 @@ function array_field($arrays){
     }
     return $data;
 }
+
+//得到菜单的最上层的menu_id
+function get_top_menu_id($datas,$menu_id){
+   foreach ($datas as $data){
+        $a = check_menu_exist($data,$menu_id);
+       if($a !== false){
+           return $data['id'];
+       }
+   }
+}
+
+/**
+ * 判断菜单id是否存在于这个menu里面
+ * @param $data
+ * @param $menu_id
+ * @return bool
+ */
+function check_menu_exist($data,$menu_id){
+    $string = json_encode($data);
+    $a = strpos($string,'"id":'.$menu_id.',');
+    if($a !== false){
+        return true;
+    }else{
+        return false;
+    }
+}
+

@@ -14,9 +14,10 @@ use Illuminate\Support\Facades\Session;
 class AccountController extends BaseController
 {
 
-    public function show(){
+    public function index(){
         $user_id = Session::get('user_id');
         $user = User::getUserById($user_id);
+        return view('account/index',['user'=>$user]);
     }
 
 }

@@ -1,6 +1,5 @@
 @extends('layouts.master')
 
-
 @section('content_header')
 	<!-- Content Header (Page header) -->
     <div class="content-header">
@@ -30,4 +29,11 @@
 	  </div>
 	</section>  
 @endsection
+
+@section('script')
+@section('script')
+    @show()
+@endsection
+
+
 

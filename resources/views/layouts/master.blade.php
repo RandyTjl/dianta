@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="plugins/iCheck/flat/blue.css">
+
+  <link rel="stylesheet" href="plugins/bootstrap/css/bootstrap.css">
   <!-- Morris chart -->
   <link rel="stylesheet" href="plugins/morris/morris.css">
   <!-- jvectormap -->
@@ -27,32 +29,30 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="./dist/css/googleapis.css" rel="stylesheet">
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="sidebar-mini">
 <div class="wrapper">
   <!--header部分-->
   @include('layouts.header')
   <!--header部分-->
-  
+
   <!--sidebar部分-->
   @include('layouts.sidebar')
   <!--sidebar部分-->
-  
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 	@section('content_header')
-		
-    @show
-	
-	@section('body')
     @show
 
+	@section('body')
+    @show
   </div>
   <!-- Content Wrapper. Contains page content -->
-	
+
   <!--footer部分-->
   @include('layouts.footer')
   <!--footer部分-->
-	
+
   <!-- Control Sidebar -->
   <aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
@@ -60,6 +60,9 @@
   <!-- /.control-sidebar -->
 <div>
 <!-- ./wrapper -->
+<div style="top: 50%;left: 50%;position: fixed;display: none;z-index: 10" id="load_html">
+
+</div>
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
@@ -98,5 +101,9 @@
 <script src="dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="dist/js/demo.js"></script>
+
+    <script src="js/common.js"></script>
 </body>
 </html>
+@section('script')
+  @show()

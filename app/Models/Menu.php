@@ -19,7 +19,7 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'menu', 'menu_name','parent_id','icon'
+        'menu', 'menu_name','parent_id','icon','is_del'
     ];
 
     /**

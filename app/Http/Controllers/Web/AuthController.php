@@ -34,7 +34,7 @@ class AuthController extends BaseController
             $menus = $this->user_menu($user->id);
             $top_menu = createTopMenu($menus);
             Session::put('user_id',$user->id);
-            Session::put('admin',$user);
+            Session::put('user',$user);
             Session::put('top_menu',$top_menu);
             Session::put('menus',$menus);
             Session::save();
@@ -46,7 +46,7 @@ class AuthController extends BaseController
     }
 
 
-    private function user_menu($user_id){
+    public function user_menu($user_id){
         $role_ids = UserRole::getRoleId($user_id);
         $menu_ids = MenuRole::getMenuId($role_ids);
         $menus = Menu::getMenu($menu_ids);

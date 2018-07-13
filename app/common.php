@@ -7,17 +7,26 @@
  */
 
 function createLeftMenu($datas,$level=0 ){
-    $menu_id = empty($_GET['menu_id'])?'1':$_GET['menu_id'];
+    $a = '';
+    if(empty($_GET['menu_id'])){
+        if(empty(\Illuminate\Support\Facades\Session::get('menu_id'))){
+            $menu_id = 1;
+        }else{
+            $menu_id = \Illuminate\Support\Facades\Session::get('menu_id');
+        }
+    }else{
+        $menu_id = $_GET['menu_id'];
+        \Illuminate\Support\Facades\Session::put('menu_id',$menu_id);
+    }
+
     $menu_parent_id = get_top_menu_id($datas,$menu_id);
-    /*if(\Illuminate\Support\Facades\Session::get('menu_parent_id') == $menu_parent_id){
-        return \Illuminate\Support\Facades\Session::get('left_menu');
-    }*/
 
     $html = '';
     $left_class = "padding-left:".(8*($level))."px";
     $size = "font-size:".(18-$level)."px";
 
     if(is_array($datas)){
+        //等级为0的时候生成获取左侧菜单数组
         if($level == 0 ){
             $arrays = [];
             foreach ($datas as $data){
@@ -25,14 +34,18 @@ function createLeftMenu($datas,$level=0 ){
                     $arrays[] = $data;
                 }
             }
+            if($menu_id == $menu_parent_id){
+                $a = 0;
+            }
         }else{
             $arrays = $datas;
         }
-        foreach ($arrays as $array){
+        foreach ($arrays as $key=>$array){
             $active = '';
-            if(check_menu_exist($array,$menu_id)){
+            if(check_menu_exist($array,$menu_id) || $key === $a){
                 $active = "active";
             }
+
             if(isset($array['_chirld'])){
                 //$num = count($array['_chirld']);
                 $html .= '<li class="nav-item has-treeview menu-open" style="'.$left_class.'">
@@ -142,5 +155,30 @@ function check_menu_exist($data,$menu_id){
     }else{
         return false;
     }
+}
+
+function power_check($menus,$menu_id,$level=0){
+    $html = '';
+    foreach ($menus as $k=>$menu){
+        $checked = '';
+        if(in_array($menu['id'],$menu_id)){
+            $checked = 'checked';
+        }
+        if(isset($menu['_chirld'])){
+            $html .= '<div class="form-group" style="margin-left: '.($level*5).'%">
+                <label>
+                <input type="checkbox" name="munu_ids[]" value="'.$menu['id'].'" class="flat-red" '.$checked.' >'.$menu['menu_name'].'
+            </label>
+            <div class="form-group" style="margin-left: 5%">';
+            $html .=   power_check($menu['_chirld'],$menu_id);
+            $html .= '</div>';
+            $html .= '</div>';
+        }else{
+            $html .= '<label style="margin-left: 10px;">
+                <input type="checkbox" name="munu_ids[]" value="'.$menu['id'].'" class="flat-red" '.$checked.' >'.$menu['menu_name'].'
+            </label>';
+        }
+    }
+    return $html;
 }
 

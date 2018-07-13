@@ -2,9 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Database\Eloquent\Model;
 
-class User extends Authenticatable
+class User extends Model
 {
 
     /**
@@ -41,4 +41,5 @@ class User extends Authenticatable
         $user = self::where(['id'=>$user_id])->first();
         return $user;
     }
+
 }

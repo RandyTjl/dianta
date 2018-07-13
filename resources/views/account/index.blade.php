@@ -54,9 +54,9 @@
               var data = $("form").serialize();
               var url = '/account/'+$("#user_id").val();
               $.ajax({
-                  'type':'POST',
-                  'data':data,
-                  'url':url,
+                  type:'PUT',
+                  data:data,
+                  url:url,
                   beforeSend:function () {
                     load_html(1);
                   },

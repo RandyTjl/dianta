@@ -26,8 +26,12 @@ Route::group(['middleware' => 'Web','namespace'=>'Web'], function () {
         Route::get('/',function(){
             return view('index/index');
         });
-        Route::resource('/account',"AccountController");
+
         Route::resource('/power',"PowerController");
+
+        Route::resource('/account',"AccountController");
+        Route::resource('/users',"UserController");
+        Route::resource('/roles',"roleController");
 
 
     });

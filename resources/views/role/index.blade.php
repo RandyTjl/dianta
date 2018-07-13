@@ -39,7 +39,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $users->links() }}
+                {{ $roles->links() }}
             </div>
         </div>
     </div>

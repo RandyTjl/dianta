@@ -157,11 +157,18 @@ function check_menu_exist($data,$menu_id){
     }
 }
 
-function power_check($menus,$menu_id,$level=0){
+/**
+ *权限展示和选择
+ * @param $menus
+ * @param $menu_id
+ * @param int $level
+ * @return string
+ */
+function power_check($menus,$menu_ids,$level=0){
     $html = '';
     foreach ($menus as $k=>$menu){
         $checked = '';
-        if(in_array($menu['id'],$menu_id)){
+        if(in_array($menu['id'],$menu_ids)){
             $checked = 'checked';
         }
         if(isset($menu['_chirld'])){
@@ -178,6 +185,22 @@ function power_check($menus,$menu_id,$level=0){
                 <input type="checkbox" name="munu_ids[]" value="'.$menu['id'].'" class="flat-red" '.$checked.' >'.$menu['menu_name'].'
             </label>';
         }
+    }
+    return $html;
+}
+
+function role_list($role_ids=[]){
+    $html = '';
+    $roles = \App\Models\Role::whereNull('is_del')->get();
+    foreach ($roles as $key=>$role){
+        $check = '';
+        if(in_array($role->id,$role_ids)){
+            $check = 'checked';
+        }
+        $html .= '<label style="margin-left: 10px">
+                    <input type="checkbox" class="minimal" '.$check.'  name="roles[]" value="' . $role->id . '">
+                    <label class="form-check-label">' . $role->name .'</label>
+                </label>';
     }
     return $html;
 }

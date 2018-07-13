@@ -1,34 +1,33 @@
 @extends('layouts.body')
 
-@section('title',"信息修改");
+@section('title',"添加用户");
 @section('name',"url");
 
 @section('content')
     <link rel="stylesheet" href="/plugins/iCheck/all.css">
     <div class="card card-primary">
         <div class="card-header">
-            <h3 class="card-title">详细信息</h3>
+            <h3 class="card-title">用户</h3>
         </div>
-        <input type="text" style="display: none" id="user_id"  value="{{$user->id}}">
         <form role="form">
             <div class="card-body">
                 <div class="form-group">
                     <label for="email">邮箱</label>
-                    <input type="email"  name="email" class="form-control" id="email" placeholder="邮箱地址" value="{{$user->email}}">
+                    <input type="email"  name="email" class="form-control" id="email" placeholder="邮箱地址" value="">
                 </div>
                 <div class="form-group">
                     <label for="password">密码</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="密码" value="{{$user->password}}">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="密码" value="">
                 </div>
                 <div class="form-group">
                     <label for="name">昵称</label>
-                    <input type="text" name="name" class="form-control" id="name" placeholder="昵称" value="{{$user->name}}">
+                    <input type="text" name="name" class="form-control" id="name" placeholder="昵称" value="">
                 </div>
                 <div class="form-group">
                     <label for="role">用户角色</label>
                     <div class="form-group">
                         <?php
-                            echo role_list($role_ids);
+                            echo role_list();
                         ?>
                     </div>
                 </div>
@@ -44,7 +43,7 @@
                         </div>
                     </div>
                     <div style="border: 1px chocolate solid;margin-top: 2px;padding: 2px;">
-                        <img src="{{empty($user->image)?'/dist/img/user2-160x160.jpg':$user->image}}" width="80px" height="80px">
+                        <img src="" width="80px" height="80px">
                     </div>
                 </div>
             </div>
@@ -62,9 +61,9 @@
         $().ready(function () {
             $("#save").on('click',function () {
                 var data = $("form").serialize();
-                var url = '/users/'+$("#user_id").val();
+                var url = '/users';
                 $.ajax({
-                    'type':'PUT',
+                    'type':'POST',
                     'data':data,
                     'url':url,
                     beforeSend:function () {

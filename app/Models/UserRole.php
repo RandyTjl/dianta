@@ -13,6 +13,8 @@ class UserRole extends Model
      */
     protected $table = 'user_role';
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -32,6 +34,20 @@ class UserRole extends Model
         $user = self::where("role_id",$role_id)->get(['user_id'])->toArray();
         $user = array_field($user);
         return $user['user_id'];
+    }
+
+    public static function saveRoleList($user_id,$role_ids){
+        $input['user_id'] = $user_id;
+        if($role_ids && is_array($role_ids)){
+            foreach ($role_ids as $role_id){
+                $input['role_id'] = $role_id;
+                $a = self::create($input);
+                if(!$a){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

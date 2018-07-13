@@ -12,7 +12,7 @@
                 <h3 class="card-title">用户</h3>
             </div>
             <div class="card-body">
-                <button type="button" class="btn  btn-default pull-right" id="add">添加用户</button>
+                <a href="/users/create" class="btn  btn-default pull-right" id="add">添加用户</a>
             </div>
             <!-- /.card-header -->
             <div class="card-body">

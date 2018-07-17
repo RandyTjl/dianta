@@ -24,7 +24,7 @@
                     <label for="role">角色权限</label>
                     <div class="form-group">
                         <?php
-                            echo role_list($role_ids);
+                            echo power_check($menus,$menu_ids);
                         ?>
                     </div>
                 </div>

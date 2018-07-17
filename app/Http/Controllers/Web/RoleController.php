@@ -10,6 +10,8 @@ namespace App\Http\Controllers\Web;
 use App\Models\User;
 use Illuminate\Support\Facades\Input;
 use App\Models\Role;
+use Illuminate\Support\Facades\Session;
+use App\Models\MenuRole;
 
 class RoleController extends BaseController{
 
@@ -25,7 +27,10 @@ class RoleController extends BaseController{
     public function edit($role_id){
 
         $role = Role::getRoleById($role_id);
-        return view('role/edit',['role'=>$role]);
+        $menus  = Session::get('menus');
+        $menu_ids = MenuRole::getMenuId($role->id);
+
+        return view('role/edit',['role'=>$role,'menus'=>$menus,'menu_ids'=>$menu_ids]);
     }
 
     public function update($user_id){

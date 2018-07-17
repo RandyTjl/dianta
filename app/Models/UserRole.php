@@ -36,6 +36,12 @@ class UserRole extends Model
         return $user['user_id'];
     }
 
+    /**
+     * 保存角色和用户关系
+     * @param $user_id
+     * @param array $role_ids
+     * @return bool
+     */
     public static function saveRoleList($user_id,$role_ids){
         $input['user_id'] = $user_id;
         if($role_ids && is_array($role_ids)){

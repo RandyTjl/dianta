@@ -21,7 +21,7 @@ class RoleController extends BaseController{
     }
 
     public function create(){
-
+        return view('role/create');
     }
 
     public function edit($role_id){
@@ -33,18 +33,23 @@ class RoleController extends BaseController{
         return view('role/edit',['role'=>$role,'menus'=>$menus,'menu_ids'=>$menu_ids]);
     }
 
-    public function update($user_id){
+    public function update($role_id){
         $data = Input::all();
-        $a = User::where('id',$user_id)->update($data);
+        $menu_ids = $data['menu_ids'];
+        unset($data['menu_ids']);
+        $a = User::where('role_id',$role_id)->update($data);
         if($a){
-            $this->success();
-        }else{
-            $this->fail(200005);
+            //保存用户角色和菜单权限
+            $b = MenuRole::where('user_id',$a->user_id)->delete();
+            if($b){
+                $this->success();
+            }
         }
+        $this->fail(200005);
     }
 
-    public function destroy($user_id){
-        $a = User::where('id',$user_id)->update(['is_del'=>'1']);
+    public function destroy($role_id){
+        $a = Role::where('id',$role_id)->update(['is_del'=>'1']);
         if($a){
             $this->success();
         }else{

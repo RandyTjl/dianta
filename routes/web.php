@@ -31,7 +31,8 @@ Route::group(['middleware' => 'Web','namespace'=>'Web'], function () {
         Route::resource('/users',"UserController");
         Route::resource('/roles',"RoleController");
 
-        Route::resource('/power',"PowerController");
+        
+	Route::resource('/power',"PowerController");
     });
 
 });

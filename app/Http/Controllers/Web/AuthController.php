@@ -30,7 +30,6 @@ class AuthController extends BaseController
 
         if (Auth::guard('Web')->attempt(['email' => $email, 'password' => $password],$remember_token)) {
 
-
             $menus = $this->user_menu($user->id);
             $top_menu = createTopMenu($menus);
             Session::put('user_id',$user->id);

@@ -24,6 +24,25 @@ class RoleController extends BaseController{
         return view('role/create');
     }
 
+    public function store(){
+        $data = Input::all();
+        $menu_ids = Input::get('menu_ids');
+        unset($data['menu_ids']);
+
+        $data['password'] = Hash::make($data['password']);
+
+        $a = User::create($data);
+
+        if($a){
+            MenuRole::where('user_id',$a->user_id)->delete();
+            $b = MenuRole::saveRoleList($a->user_id,$menu_ids);
+            if($b){
+                return $this->success();
+            }
+        }
+        return $this->fail(200004);
+    }
+
     public function edit($role_id){
 
         $role = Role::getRoleById($role_id);

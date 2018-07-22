@@ -1,6 +1,6 @@
 @extends('layouts.body')
 
-@section('title',"信息修改");
+@section('title',"角色添加");
 @section('name',"url");
 
 @section('content')
@@ -9,22 +9,22 @@
         <div class="card-header">
             <h3 class="card-title">角色信息</h3>
         </div>
-        <input type="text" style="display: none" id="role_id"  value="{{$role->id}}">
+        <input type="text" style="display: none" id="role_id"  value="">
         <form role="form">
             <div class="card-body">
                 <div class="form-group">
                     <label for="email">角色名</label>
-                    <input type="email"  name="email" class="form-control" id="email" placeholder="邮箱地址" value="{{$user->email}}">
+                    <input type="email"  name="email" class="form-control" id="email" placeholder="邮箱地址" value="">
                 </div>
                 <div class="form-group">
                     <label for="password">状态</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="密码" value="{{$user->password}}">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="密码" value="">
                 </div>
                 <div class="form-group">
                     <label for="role">角色权限</label>
                     <div class="form-group">
                         <?php
-                            echo power_check($menus,$menu_ids);
+                            echo power_check();
                         ?>
                     </div>
                 </div>

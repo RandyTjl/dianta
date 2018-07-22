@@ -20,17 +20,17 @@
                     <thead>
                     <tr>
                         <th style="width: 10%">角色id</th>
-                        <th style="width: 10%">角色名</th>
-                        <th style="width: 15%">状态</th>
+                        <th style="width: 20%">角色名</th>
+                        <th style="width: 20%">状态</th>
                         <th>操作</th>
                     </tr>
                     </thead>
                     <tbody>
-                    @foreach($roles as $k=>$role)
+                    @foreach($datas as $k=>$role)
                     <tr>
                         <td>{{$role->id}}</td>
                         <td>{{$role->name}}</td>
-                        <td>{{$user->is_del}}</td>
+                        <td>{{$role->is_del}}</td>
                         <td>
                             <button type="button" class="btn btn-btn-app btn-primary " id="edit"><i class="fa fa-edit">修改</i></button>
                             <button type="button" class="btn btn-btn-app btn-danger" id="delete"><i class="fa fa-trash-o">删除</i></button>
@@ -39,7 +39,7 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $roles->links() }}
+                {{ $datas->links() }}
             </div>
         </div>
     </div>

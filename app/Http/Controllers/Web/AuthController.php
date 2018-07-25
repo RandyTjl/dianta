@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use App\Models\UserRole;
 use App\Models\MenuRole;
-use App\models\Menu;
+use App\Models\Menu;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 

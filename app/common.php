@@ -180,7 +180,7 @@ function power_check($menus,$menu_ids=[],$level=0){
                 <input type="checkbox" name="munu_ids[]" value="'.$menu['id'].'" class="flat-red" '.$checked.' >'.$menu['menu_name'].'
             </label>
             <div class="form-group" style="margin-left: 5%">';
-            $html .=   power_check($menu['_chirld'],$menu_id);
+            $html .=   power_check($menu['_chirld'],$menu_ids);
             $html .= '</div>';
             $html .= '</div>';
         }else{

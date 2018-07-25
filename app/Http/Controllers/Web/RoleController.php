@@ -16,7 +16,7 @@ use App\Models\MenuRole;
 class RoleController extends BaseController{
 
     public function index(){
-        $roles = Role::where('is_del','<>','1')->paginate(1);
+        $roles = Role::paginate(1);
         return view("role/index",['roles'=>$roles]);
     }
 

@@ -17,9 +17,14 @@ use Illuminate\Support\Facades\Hash;
 class RoleController extends BaseController{
 
     public function index(){
+<<<<<<< HEAD
         $roles = Role::paginate(2);
 
         return view("role/index",['datas'=>$roles]);
+=======
+        $roles = Role::paginate(1);
+        return view("role/index",['roles'=>$roles]);
+>>>>>>> 25b83b57528ce6e8f9fe3a9f88c02504b9dd4fba
     }
 
     public function create(){

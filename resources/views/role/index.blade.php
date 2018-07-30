@@ -47,13 +47,18 @@
 @section('script')
     <script>
         $(function () {
+            $("#add").on('click',function () {
+                var url = "roles/create";
+                window.location.href = url;
+            })
+            
             $("#edit").on('click',function () {
-                var url = "/roles/" +$(this).parents('tr').find('td').first() + "/edit";
+                var url = "/roles/" +$(this).parents('tr').find('td').first().text()+ "/edit";
                 window.location.href = url;
             })
 
             $("#delete").on('click',function () {
-                var url = "/roles/"+$(this).parents('tr').find('td').first();
+                var url = "/roles/"+$(this).parents('tr').find('td').first().text();
                 $.ajax({
                     type:"DELETE",
                     url:url,

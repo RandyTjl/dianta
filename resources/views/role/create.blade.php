@@ -14,11 +14,11 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="email">角色名</label>
-                    <input type="email"  name="email" class="form-control" id="email" placeholder="邮箱地址" value="">
+                    <input type="email"  name="name" class="form-control" id="name" placeholder="角色名" value="">
                 </div>
                 <div class="form-group">
                     <label for="password">状态</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="密码" value="">
+                    <input type="type" name="status" class="form-control" id="status" placeholder="密码" value="">
                 </div>
                 <div class="form-group">
                     <label for="role">角色权限</label>
@@ -43,9 +43,9 @@
         $().ready(function () {
             $("#save").on('click',function () {
                 var data = $("form").serialize();
-                var url = '/users/'+$("#user_id").val();
+                var url = '/roles';
                 $.ajax({
-                    'type':'PUT',
+                    'type':'POST',
                     'data':data,
                     'url':url,
                     beforeSend:function () {

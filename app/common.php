@@ -164,7 +164,7 @@ function check_menu_exist($data,$menu_id){
  * @param int $level
  * @return string
  */
-function power_check($menus,$menu_ids=[],$level=0){
+function power_check($menus='',$menu_ids=[],$level=0){
     if(empty($menus)){
         $menus = \Illuminate\Support\Facades\Session::get('menus');
     }

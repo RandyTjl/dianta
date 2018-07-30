@@ -14,6 +14,8 @@ class Role extends Model
      */
     protected $table = 'role';
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *

@@ -25,7 +25,7 @@ class UserController extends BaseController{
         return view('user/create');
     }
 
-    public function store(){
+   /* public function store(){
         $data = Input::all();
         $role_ids = Input::get('roles');
         unset($data['roles']);
@@ -42,7 +42,7 @@ class UserController extends BaseController{
             }
         }
         return $this->fail(200004);
-    }
+    }*/
 
     public function edit($user_id){
         $user = User::getUserById($user_id);

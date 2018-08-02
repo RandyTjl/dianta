@@ -192,6 +192,11 @@ function power_check($menus='',$menu_ids=[],$level=0){
     return $html;
 }
 
+/**
+ * 角色列表
+ * @param array $role_ids
+ * @return string
+ */
 function role_list($role_ids=[]){
     $html = '';
     $roles = \App\Models\Role::whereNull('is_del')->get();
@@ -207,4 +212,6 @@ function role_list($role_ids=[]){
     }
     return $html;
 }
+
+
 

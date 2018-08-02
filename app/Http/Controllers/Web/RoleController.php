@@ -18,7 +18,7 @@ class RoleController extends BaseController{
 
     public function index(){
         $roles = Role::paginate(1);
-        return view("role/index",['roles'=>$roles]);
+        return view("role/index",['datas'=>$roles]);
 
     }
 

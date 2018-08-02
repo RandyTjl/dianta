@@ -38,7 +38,11 @@ class MenuRole extends Model
         }
 
         $menu_ids = self::whereIn("role_id",$role_ids)->get(['menu_id'])->toArray();
-        $menu_ids = array_field($menu_ids)['menu_id'];
+        if(count($menu_ids)>0){
+            $menu_ids = array_field($menu_ids)['menu_id'];
+        }else{
+            $menu_ids = [];
+        }
         return $menu_ids;
     }
 

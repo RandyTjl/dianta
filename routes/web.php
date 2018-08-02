@@ -30,9 +30,9 @@ Route::group(['middleware' => 'Web','namespace'=>'Web'], function () {
         Route::resource('/account',"AccountController");
         Route::resource('/users',"UserController");
         Route::resource('/roles',"RoleController");
-
+        Route::resource('/menus',"MenuController");
         
-	Route::resource('/power',"PowerController");
+
     });
 
 });

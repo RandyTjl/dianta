@@ -58,7 +58,7 @@
     <!-- Control sidebar content goes here -->
   </aside>
   <!-- /.control-sidebar -->
-<div>
+</div>
 <!-- ./wrapper -->
 <div style="top: 50%;left: 50%;position: fixed;display: none;z-index: 10" id="load_html">
 
@@ -102,7 +102,7 @@
 <!-- AdminLTE for demo purposes -->
 <script src="/dist/js/demo.js"></script>
 
-    <script src="/js/common.js"></script>
+<script src="/js/common.js"></script>
 </body>
 </html>
 @section('script')

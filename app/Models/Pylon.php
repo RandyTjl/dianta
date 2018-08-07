@@ -19,7 +19,7 @@ class Pylon extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name','site','Longitude','latitude','type','l1','l2','bottom_top','radian','is_del'
+        'user_id', 'name','site','Longitude','latitude','type','length','width','bottom_top','radian','is_del'
     ];
 
 

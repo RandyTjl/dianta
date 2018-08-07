@@ -42,7 +42,7 @@ class PylonController extends BaseController{
 
     public function edit($pylon_id){
 
-        $pylon = Pylon::getRoleById($pylon_id);
+        $pylon = Pylon::getPylon($pylon_id);
 
         return view('pylon/edit',['pylon'=>$pylon]);
     }

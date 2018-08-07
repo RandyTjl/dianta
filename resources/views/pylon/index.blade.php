@@ -51,17 +51,17 @@
     <script>
         $(function () {
             $("#add").on('click',function () {
-                var url = "pylon/create";
+                var url = "pylons/create";
                 window.location.href = url;
             })
             
             $("#edit").on('click',function () {
-                var url = "/pylon/" +$(this).parents('tr').find('td').first().text()+ "/edit";
+                var url = "/pylons/" +$(this).parents('tr').find('td').first().text()+ "/edit";
                 window.location.href = url;
             })
 
             $("#delete").on('click',function () {
-                var url = "/pylon/"+$(this).parents('tr').find('td').first().text();
+                var url = "/pylons/"+$(this).parents('tr').find('td').first().text();
                 $.ajax({
                     type:"DELETE",
                     url:url,

@@ -355,7 +355,7 @@
 
                         break;
                 }
-
+                console.log(ph);
                 h_p = parseInt(h_p)+parseInt(height);
                 //把坐标和索引放入立方体中
                 cubeGeometry.vertices = ph[0];

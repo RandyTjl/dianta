@@ -622,8 +622,6 @@ function pylon_head(point1,point2,h_p,h,l,n,radian,type,direction){
 			} 
 			break;
 	}
-	
-
 	return [vertices,faces,vertices_first];	
 }
 

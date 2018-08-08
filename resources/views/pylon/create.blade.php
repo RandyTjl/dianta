@@ -40,22 +40,21 @@
                 </div>
                 <div class="form-group col-sm-6 pull-left">
                     <label for="radian">塔竖面倾斜度</label>
-                    <input type="text" name="radian" class="form-control" id="radian" placeholder="倾斜弧度PI/4 到 PI/2" value="2*PI/5">
+                    <input type="text" name="radian" class="form-control" id="radian" placeholder="倾斜弧度0.25 到 0.5之间" value="0.45">
                 </div>
             </div>
             <hr  style="height:1px;border:none;border-top:1px dashed #1c7430;" >
             <div class=" col-sm-6 pull-left" id="pylon_condition" style="margin: 15px 0" >
                 <div id="pylon_tabula" >
-                    <input type="text" style="display: none" value="5" name="pylon_type">
                     <label >横隔:</label>
                     <div class="card-body" style="border: #00a65a 1px solid;">
                         <div class="form-group col-sm-6 pull-left" >
                             <label for="tabula_type">模块类型</label>
                             <select class="form-control" name="tabula_type" id="tabula_type">
                                 <option>请选择</option>
-                                <option value="1">模型1</option>
-                                <option value="2" selected >模型2</option>
-                                <option value="2">模型2</option>
+                                <option value="1" selected>模型1</option>
+                                <option value="2"  >模型2</option>
+                                <option value="3">模型3</option>
                             </select>
                         </div>
                     </div>
@@ -80,8 +79,8 @@
                         <button class="btn btn-primary" type="button">添加</button>
                     </div>
                     <div style="border: #00a65a 1px solid;margin-top: 10px"  >
-                        <input type="text" style="display: none" value="2" name="pylon_type">
                         <div class="card-body" name="structure" id="pylon_body1" >
+                            <input type="text" style="display: none" value="2" name="pylon_type">
                             <div  class="col-sm-12" >
                                 <p>组成1</p>
                                 <i class="fa fa-close" style="color: red;font-size: 22px;position: absolute;right: 10px;top:2px"></i>
@@ -107,12 +106,12 @@
                     </div>
                 </div>
                 <div id="pylon_head"  style="margin-top: 10px">
-                    <input type="text" style="display: none" value="3" name="pylon_type">
                     <label >塔头:</label>
                     <div class="pull-right">
                         <button class="btn btn-primary" type="button">添加</button>
                     </div>
-                    <div class="card-body" style="border: #00a65a 1px solid;margin-top: 10px" name="structure">
+                    <div class="card-body" style="border: #00a65a 1px solid;margin-top: 10px" name="structure" id="pylon_head1">
+                        <input type="text" style="display: none" value="3" name="pylon_type">
                         <div  class="col-sm-12" >
                             <p>塔头1</p>
                             <i class="fa fa-close" style="color: red;font-size: 22px;position: absolute;right: 10px;top:2px"></i>
@@ -239,11 +238,13 @@
 
         //获取设置模型参数
         function setParameters() {
-            l1 = $('#length').val();
-            l2 = $("#bottom_top").val();
-            l3 = $("#width").val();
-            radian = $("#radian").val();
-            tabula_type = $("#tabula").find("select[name='tabula']").val();
+            $("#canvas-frame").height($("#canvas-frame").parent().prev().height());
+
+            l1 = parseInt($('#length').val());
+            l2 = parseInt($("#bottom_top").val());
+            l3 = parseInt($("#width").val());
+            radian = Math.PI*parseFloat($("#radian").val());
+            tabula_type = parseInt($("#tabula_type").val());
         }
 
         //初始化画布
@@ -262,7 +263,7 @@
         function initCamera() {
             camera = new THREE.PerspectiveCamera(70, width / height, 1, 10000);
             //camera = new THREE.OrthographicCamera( window.innerWidth / - 2, window.innerWidth / 2, window.innerHeight / 2, window.innerHeight / - 2, 10, 1000  )
-            camera.position.x = 0;
+            camera.position.x = 200;
             camera.position.y = 200;
             camera.position.z = 200;
             camera.up.x = 0;
@@ -295,10 +296,13 @@
         //初始化对象
         function initObject() {
             var ph_body =  new Array();
+            //塔身高度
             var ph_height = new Array();
+            //塔身前面总高度
+            var ph_h_p = new Array();
             var ph = new Array();//结构调用返回的参数
             var h_p = 0;   //前面部分总高
-            var tabula_type = $("#tabula_type").val();
+            var head_ph = '';
 
             $("div[name='structure']").each(function (i,value) {
                 //立方体
@@ -306,10 +310,11 @@
                 //材质
                 var material = new THREE.MeshBasicMaterial({color:0x00ae00,wireframe : true,skinning:true});
 
-                var pylon_type = Number($(value).find("div[name='pylon_type']"));
-                var height = $(value).find("input[name='height']").val();
-                var n = $(value).find("input[name='n']").val();
-                var part_type = $(value).find("select[name='part_type']").val();
+                var pylon_type = Number($(value).find("input[name='pylon_type']").val());
+                var height = parseInt($(value).find("input[name='height']").val());
+                var n = parseInt($(value).find("input[name='n']").val());
+                var part_type = parseInt($(value).find("select[name='part_type']").val());
+
                 switch (pylon_type){
                     case 1:
                         ph = pylon_bottom(height,l1,l2,l3,n,radian);
@@ -320,12 +325,13 @@
                         plan.faces = ta[1];
                         mesh1 = new THREE.Mesh( plan,material );
                         scene.add( mesh1 );
-
                         break;
                     case 2:
                         ph = pylon_body(l1,ph[2],h_p,height,n,radian,part_type);
+                        //保存塔身的值
                         ph_body.push(ph);
                         ph_height.push(height);
+                        ph_h_p.push(h_p);
                         //横隔
                         var plan = new THREE.PlaneGeometry();
                         var ta = tabula1(ph[2],tabula_type);
@@ -335,24 +341,33 @@
                         scene.add( mesh1 );
                         break;
                     case 3:
-                        var position = $(value).find("input[name='position']").val();
-                        var head_l1 = $(value).find("input[name='head_l1']").val();
+                        var position = parseInt($(value).find("input[name='position']").val());
+                        var head_l1 = parseInt($(value).find("input[name='head_l1']").val());
                         var direction = "'"+$(value).find("select[name='direction']").val()+"'";
-                        ph = pylon_head(ph_body[position-1][2],ph_body[position-1][3],h_p,ph_height[position-1],head_l1,n,radian,part_type,direction);
+
+                        ph = pylon_head(ph_body[position-1][2],ph_body[position-1][3],ph_h_p[position-1],ph_height[position-1],head_l1,n,radian,part_type,direction);
+
                         //头部组件
                         var module_l1 = $(value).find("input[name='module_l1']").val();
                         var module_l2 = $(value).find("input[name='module_l2']").val();
                         var module_type = $(value).find("select[name='module_type']").val();
                         head_ph = pylon_head_other(ph[2],module_l1,module_l2,module_type,direction);
+
                         break;
                 }
-                h_p = h_p+height;
+
+                h_p = parseInt(h_p)+parseInt(height);
                 //把坐标和索引放入立方体中
                 cubeGeometry.vertices = ph[0];
                 cubeGeometry.faces = ph[1];
 
                 mesh = new THREE.Mesh( cubeGeometry,material );
                 scene.add( mesh );
+                if(head_ph){
+                    var cubeHead = new THREE.Geometry();
+                    cubeHead.vertices = head_ph[0];
+                    cubeHead.faces = head_ph[1];
+                }
             })
 
         }
@@ -370,9 +385,10 @@
 
         //动漫
         function animation(){
-            renderer.clear();
-            //cameraRotate();
+            //renderer.clear();
+            cameraRotate();
             renderer.render(scene, camera);
+
             requestAnimationFrame(animation);
         }
 

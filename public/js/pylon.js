@@ -124,8 +124,8 @@ function get_relative_all(vertices,xyz) {
 /**
  * 通过顶点坐标生成横隔
  * @param vertices 顶点所有坐标
+ * * @param faces 构成面的索引
  * @param point 上顶点坐标
- * @param faces 构成面的索引
  * @param type  横隔类型
  */
 function tabula(vertices,faces,point,type) {
@@ -222,7 +222,7 @@ function tabula(vertices,faces,point,type) {
             faces.push(new THREE.Face3(len-len1,len,len-len1+1));
             faces.push(new THREE.Face3(len,len-len1,len-len1+2));
             break;
-            break;
+
     }
     return [vertices,faces,point];
 }
@@ -301,9 +301,11 @@ function pylon_body(l1,point,h_p,h,n1,radian,type) {
 				
 			}
 			vertices1 = vertices1.reverse();
-			po.push(vertices1[0]);
+			var po_temp = get_relative_all(po,'x');
+			po.push(po_temp[1]);
+            po.push(po_temp[0]);
 			temp = get_relative(vertices1,'x');
-			po.push(temp[0]);
+
 			vertices1 = vertices1.concat(temp.reverse())
 			//获得第三个面
 			var vertices2 =  get_relative(vertices,'x').reverse();
@@ -505,6 +507,7 @@ function pylon_head(point1,point2,h_p,h,l,n,radian,type,direction){
 		vertices.push(point1[3]);
 		vertices.push(point2[3]);	
 	}
+
 	switch(type){
 		case 1:
 			if(direction == 'x'){
@@ -620,7 +623,7 @@ function pylon_head(point1,point2,h_p,h,l,n,radian,type,direction){
 			break;
 	}
 	
-	
+
 	return [vertices,faces,vertices_first];	
 }
 
@@ -730,6 +733,7 @@ function tabula1(point,type) {
             
             faces.push(new THREE.Face3(len-len1,len,len-len1+1));
             faces.push(new THREE.Face3(len,len-len1,len-len1+2));
+            faces.push(new THREE.Face3(len,len-len1+2,len-len1+1));
             break;
         case 2:
             var temp = [];

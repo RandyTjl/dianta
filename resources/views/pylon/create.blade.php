@@ -174,6 +174,7 @@
             </div>
             <div class="col-sm-6 pull-left" >
                 <button class="btn btn-primary" type="button" id="show">展示</button>
+                <button class="btn btn-primary" type="button" id="close">关闭</button>
                 <div id="canvas-frame"></div>
             </div>
             <div style="clear: both"></div>
@@ -216,7 +217,11 @@
                 })
             })
             $("#show").click(function () {
+                $("#canvas-frame").find("canvas").remove();
                 threeStart();
+            })
+            $("#close").click(function () {
+                $("#canvas-frame").find("canvas").remove();
             })
         })
 
@@ -308,7 +313,7 @@
                 //立方体
                 var cubeGeometry = new THREE.Geometry();
                 //材质
-                var material = new THREE.MeshBasicMaterial({color:0x00ae00,wireframe : true,skinning:true});
+                var material = new THREE.MeshBasicMaterial({color:0x919191,wireframe : true,skinning:true});
 
                 var pylon_type = Number($(value).find("input[name='pylon_type']").val());
                 var height = parseInt($(value).find("input[name='height']").val());
@@ -343,19 +348,19 @@
                     case 3:
                         var position = parseInt($(value).find("input[name='position']").val());
                         var head_l1 = parseInt($(value).find("input[name='head_l1']").val());
-                        var direction = "'"+$(value).find("select[name='direction']").val()+"'";
+                        var direction = $(value).find("select[name='direction']").val();
 
                         ph = pylon_head(ph_body[position-1][2],ph_body[position-1][3],ph_h_p[position-1],ph_height[position-1],head_l1,n,radian,part_type,direction);
 
                         //头部组件
-                        var module_l1 = $(value).find("input[name='module_l1']").val();
-                        var module_l2 = $(value).find("input[name='module_l2']").val();
-                        var module_type = $(value).find("select[name='module_type']").val();
+                        var module_l1 = parseInt($(value).find("input[name='module_l1']").val());
+                        var module_l2 = parseInt($(value).find("input[name='module_l2']").val());
+                        var module_type = parseInt($(value).find("select[name='module_type']").val());
                         head_ph = pylon_head_other(ph[2],module_l1,module_l2,module_type,direction);
 
                         break;
                 }
-                console.log(ph);
+
                 h_p = parseInt(h_p)+parseInt(height);
                 //把坐标和索引放入立方体中
                 cubeGeometry.vertices = ph[0];
@@ -363,10 +368,13 @@
 
                 mesh = new THREE.Mesh( cubeGeometry,material );
                 scene.add( mesh );
+
                 if(head_ph){
                     var cubeHead = new THREE.Geometry();
                     cubeHead.vertices = head_ph[0];
                     cubeHead.faces = head_ph[1];
+                    mesh = new THREE.Mesh( cubeHead,material );
+                    scene.add( mesh );
                 }
             })
 

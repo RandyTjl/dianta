@@ -23,16 +23,15 @@ Route::group(['middleware' => 'Web','namespace'=>'Web'], function () {
     Route::get('/auth/test',"AuthController@test");
 
     Route::group(['middleware' => 'guest'],function (){
-        Route::get('/',function(){
-            return view('index/index');
-        });
+        Route::get('/','AccountController@index');
 
         Route::resource('/account',"AccountController");
         Route::resource('/users',"UserController");
         Route::resource('/roles',"RoleController");
-
+        Route::resource('/menus',"MenuController");
+        Route::resource('/pylons',"PylonController");
         
-	Route::resource('/power',"PowerController");
+
     });
 
 });

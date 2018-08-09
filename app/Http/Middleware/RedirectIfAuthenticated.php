@@ -19,10 +19,12 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        if (!Auth::guard($guard)->check()) {
+
+        if (!Auth::guard($guard)->check() || empty(Session::get('user_id'))) {
             return redirect('/login');
         }
-        if(empty(Session::get('user_id'))){
+
+       /* if(empty(Session::get('user_id'))){
             $user = Auth::guard($guard)->user();
             $auth = new AuthController();
             $menus = $auth->user_menu($user->id);
@@ -32,7 +34,7 @@ class RedirectIfAuthenticated
             Session::put('top_menu',$top_menu);
             Session::put('menus',$menus);
             Session::save();
-        }
+        }*/
 
         return $next($request);
     }

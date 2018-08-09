@@ -164,7 +164,7 @@ function check_menu_exist($data,$menu_id){
  * @param int $level
  * @return string
  */
-function power_check($menus,$menu_ids=[],$level=0){
+function power_check($menus='',$menu_ids=[],$level=0){
     if(empty($menus)){
         $menus = \Illuminate\Support\Facades\Session::get('menus');
     }
@@ -192,6 +192,11 @@ function power_check($menus,$menu_ids=[],$level=0){
     return $html;
 }
 
+/**
+ * 角色列表
+ * @param array $role_ids
+ * @return string
+ */
 function role_list($role_ids=[]){
     $html = '';
     $roles = \App\Models\Role::whereNull('is_del')->get();
@@ -207,4 +212,6 @@ function role_list($role_ids=[]){
     }
     return $html;
 }
+
+
 

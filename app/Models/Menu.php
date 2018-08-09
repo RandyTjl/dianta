@@ -19,7 +19,7 @@ class Menu extends Model
      * @var array
      */
     protected $fillable = [
-        'menu', 'menu_name','parent_id','icon','is_del'
+        'menu', 'menu_name','parent_id','url','icon','is_del'
     ];
 
     /**
@@ -29,6 +29,15 @@ class Menu extends Model
      */
     public static function getMenu($menu_ids){
         $menus = self::whereIn("id",$menu_ids)->get()->toArray();
+        return $menus;
+    }
+
+    /**
+     * 获得所有的菜单
+     * @return array
+     */
+    public static function getAllMenu(){
+        $menus = self::all()->toArray();
         return $menus;
     }
 

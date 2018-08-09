@@ -14,11 +14,11 @@
             <div class="card-body">
                 <div class="form-group">
                     <label for="email">角色名</label>
-                    <input type="email"  name="email" class="form-control" id="email" placeholder="邮箱地址" value="{{$user->email}}">
+                    <input type="email"  name="email" class="form-control" id="email" placeholder="邮箱地址" value="{{$role->email}}">
                 </div>
                 <div class="form-group">
                     <label for="password">状态</label>
-                    <input type="password" name="password" class="form-control" id="password" placeholder="密码" value="{{$user->password}}">
+                    <input type="password" name="password" class="form-control" id="password" placeholder="密码" value="{{$role->password}}">
                 </div>
                 <div class="form-group">
                     <label for="role">角色权限</label>

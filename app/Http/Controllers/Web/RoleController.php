@@ -12,12 +12,14 @@ use Illuminate\Support\Facades\Input;
 use App\Models\Role;
 use Illuminate\Support\Facades\Session;
 use App\Models\MenuRole;
+use Illuminate\Support\Facades\Hash;
 
 class RoleController extends BaseController{
 
     public function index(){
         $roles = Role::paginate(1);
-        return view("role/index",['roles'=>$roles]);
+        return view("role/index",['datas'=>$roles]);
+
     }
 
     public function create(){
@@ -27,15 +29,12 @@ class RoleController extends BaseController{
     public function store(){
         $data = Input::all();
         $menu_ids = Input::get('menu_ids');
-        unset($data['menu_ids']);
 
-        $data['password'] = Hash::make($data['password']);
-
-        $a = User::create($data);
+        $a = Role::create($data);
 
         if($a){
-            MenuRole::where('user_id',$a->user_id)->delete();
-            $b = MenuRole::saveRoleList($a->user_id,$menu_ids);
+            $b = MenuRole::saveMenuRole($a->user_id,$menu_ids);
+
             if($b){
                 return $this->success();
             }

@@ -73,17 +73,17 @@
                         </div>
                     </div>
                 </div>
-                <div style="margin-top: 20px" id="pylon_body"  >
+                <div style="margin-top: 20px" id="pylon_body"  name="add_html" >
                     <label >塔身:</label>
                     <div class="pull-right">
-                        <button class="btn btn-primary" type="button">添加</button>
+                        <button class="btn btn-primary" type="button" onclick="add_html(this)">添加</button>
                     </div>
-                    <div style="border: #00a65a 1px solid;margin-top: 10px"  >
+                    <div style="border: #00a65a 1px solid;margin-top: 10px"  name="data_list">
                         <div class="card-body" name="structure" id="pylon_body1" >
                             <input type="text" style="display: none" value="2" name="pylon_type">
                             <div  class="col-sm-12" >
-                                <p>组成1</p>
-                                <i class="fa fa-close" style="color: red;font-size: 22px;position: absolute;right: 10px;top:2px"></i>
+                                <p name="name_list">组成1</p>
+                                <i class="fa fa-close" style="color: red;font-size: 22px;position: absolute;right: 10px;top:2px" onclick="remove_html(this)"></i>
                             </div>
 
                             <div class="form-group col-sm-6 pull-left" >
@@ -105,69 +105,68 @@
                         </div>
                     </div>
                 </div>
-                <div id="pylon_head"  style="margin-top: 10px">
+                <div id="pylon_head"  style="margin-top: 10px"  name="add_html">
                     <label >塔头:</label>
                     <div class="pull-right">
-                        <button class="btn btn-primary" type="button">添加</button>
+                        <button class="btn btn-primary" type="button" onclick="add_html(this)" >添加</button>
                     </div>
-                    <div class="card-body" style="border: #00a65a 1px solid;margin-top: 10px" name="structure" id="pylon_head1">
-                        <input type="text" style="display: none" value="3" name="pylon_type">
-                        <div  class="col-sm-12" >
-                            <p>塔头1</p>
-                            <i class="fa fa-close" style="color: red;font-size: 22px;position: absolute;right: 10px;top:2px"></i>
-                        </div>
-                        <div class="form-group col-sm-6 pull-left" >
-                            <label for="position">塔身位置</label>
-                            <input type="text" name="position" class="form-control"  placeholder="塔头所在的位置,填写塔身编号" value="1">
-                        </div>
-                        {{--<div class="form-group col-sm-6 pull-left" >
-                            <label for="height">垂直高度</label>
-                            <input type="text" name="height" class="form-control"  placeholder="垂直高度" value="40">
-                        </div>--}}
-                        <div class="form-group col-sm-6 pull-left" >
-                            <label for="head_l1">底边长度</label>
-                            <input type="text" name="head_l1" class="form-control"  placeholder="底边长度" value="30">
-                        </div>
-                        <div class="form-group col-sm-6 pull-left" >
-                            <label for="part_type">类型</label>
-                            <select class="form-control" name="part_type" >
-                                <option>请选择</option>
-                                <option value="1" selected >类型1</option>
-                                <option value="2">类型2</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-sm-6 pull-left" >
-                            <label for="n">分段数</label>
-                            <input type="text" name="n" class="form-control"  placeholder="条纹分段" value="2">
-                        </div>
-                        <div class="form-group col-sm-6 pull-left" >
-                            <label for="direction">头部方向</label>
-                            <select class="form-control" name="direction" >
-                                <option>请选择</option>
-                                <option value="x" selected >x轴方向</option>
-                                <option value="y">y轴方向</option>
-                                <option value="z">z轴方向</option>
-                                <option value="-x">-x轴方向</option>
-                                <option value="-y">-y轴方向</option>
-                                <option value="-z">-z轴方向</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-sm-6 pull-left" >
-                            <label for="module_l1">头部组件低边1长</label>
-                            <input type="text" name="module_l1" class="form-control"  placeholder="头部组件低边1长" value="10">
-                        </div>
-                        <div class="form-group col-sm-6 pull-left" >
-                            <label for="module_l2">头部组件低边2长</label>
-                            <input type="text" name="module_l2" class="form-control"  placeholder="底边2的长度大于底边1" value="20">
-                        </div>
-                        <div class="form-group col-sm-6 pull-left" >
-                            <label for="module_type">组件类型</label>
-                            <select class="form-control" name="module_type" >
-                                <option>请选择</option>
-                                <option value="1" selected >类型1</option>
-                                <option value="2">类型2</option>
-                                <option value="3">类型3</option>
-                            </select>
+                    <div style="border: #00a65a 1px solid;margin-top: 10px" name="data_list">
+                        <div class="card-body"  name="structure" id="pylon_head1">
+                            <input type="text" style="display: none" value="3" name="pylon_type">
+                            <div  class="col-sm-12" >
+                                <p name="name_list">组成1</p>
+                                <i class="fa fa-close" style="color: red;font-size: 22px;position: absolute;right: 10px;top:2px" onclick="remove_html(this)"></i>
+                            </div>
+                            <div class="form-group col-sm-6 pull-left" >
+                                <label for="position">塔身位置</label>
+                                <input type="text" name="position" class="form-control"  placeholder="塔头所在的位置,填写塔身编号" value="1">
+                            </div>
+
+                            <div class="form-group col-sm-6 pull-left" >
+                                <label for="head_l1">底边长度</label>
+                                <input type="text" name="head_l1" class="form-control"  placeholder="底边长度" value="30">
+                            </div>
+                            <div class="form-group col-sm-6 pull-left" >
+                                <label for="part_type">类型</label>
+                                <select class="form-control" name="part_type" >
+                                    <option>请选择</option>
+                                    <option value="1" selected >类型1</option>
+                                    <option value="2">类型2</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6 pull-left" >
+                                <label for="n">分段数</label>
+                                <input type="text" name="n" class="form-control"  placeholder="条纹分段" value="2">
+                            </div>
+                            <div class="form-group col-sm-6 pull-left" >
+                                <label for="direction">头部方向</label>
+                                <select class="form-control" name="direction" >
+                                    <option>请选择</option>
+                                    <option value="x" selected >x轴方向</option>
+                                    <option value="y">y轴方向</option>
+                                    <option value="z">z轴方向</option>
+                                    <option value="-x">-x轴方向</option>
+                                    <option value="-y">-y轴方向</option>
+                                    <option value="-z">-z轴方向</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6 pull-left" >
+                                <label for="module_l1">头部组件低边1长</label>
+                                <input type="text" name="module_l1" class="form-control"  placeholder="头部组件低边1长" value="10">
+                            </div>
+                            <div class="form-group col-sm-6 pull-left" >
+                                <label for="module_l2">头部组件低边2长</label>
+                                <input type="text" name="module_l2" class="form-control"  placeholder="底边2的长度大于底边1" value="20">
+                            </div>
+                            <div class="form-group col-sm-6 pull-left" >
+                                <label for="module_type">组件类型</label>
+                                <select class="form-control" name="module_type" >
+                                    <option>请选择</option>
+                                    <option value="1" selected >类型1</option>
+                                    <option value="2">类型2</option>
+                                    <option value="3">类型3</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -189,7 +188,7 @@
 @section('script')
     <script src="/js/three.min.js"></script>
     <script src="/js/pylon.js"></script>
-    <script src="/js/admin/crea"></script>
+    <script src="/js/admin/createPylon.js"></script>
     <script>
 
         $().ready(function () {
@@ -220,12 +219,39 @@
             })
             $("#show").click(function () {
                 $("#canvas-frame").find("canvas").remove();
-                threeStart();
+                threeStart("canvas-frame");
             })
             $("#close").click(function () {
                 $("#canvas-frame").find("canvas").remove();
             })
         })
+
+        //添加html
+        function add_html(obj) {
+            var obj_list = $(obj).parents("div[name='add_html']");
+            var html = obj_list.find("div[name='data_list']").find("div.card-body:first").clone();
+            obj_list.find("div[name='data_list']").append(html);
+
+            order_list(obj_list);
+        }
+
+        function remove_html(obj) {
+            var obj_list = $(obj).parents("div[name='add_html']");
+            $(obj).parents("div.card-body").remove();
+            order_list(obj_list);
+        }
+
+        //排序
+        function order_list(obj_list) {
+            var id = obj_list.attr("id");
+            var list = 0;
+            obj_list.find("div.card-body").each(function (i,value) {
+                list = i+1;
+
+                $(value).attr("id",id+list);
+                $(value).find("p[name='name_list']").html("组成"+list);
+            })
+        }
 
     </script>
 @endsection

@@ -20,8 +20,8 @@ var head_other_list = new Array();//塔头其他的數組
 
 
 //获取设置模型参数
-function setParameters() {
-    $("#canvas-frame").height($("#canvas-frame").parent().prev().height());
+function setParameters(id) {
+    $("#"+id).height($("#"+id).parent().prev().height());
 
     l1 = parseInt($('#length').val());
     l2 = parseInt($("#bottom_top").val());
@@ -31,14 +31,14 @@ function setParameters() {
 }
 
 //初始化画布
-function initThree() {
-    width = document.getElementById('canvas-frame').clientWidth;
-    height = document.getElementById('canvas-frame').clientHeight;
+function initThree(id) {
+    width = document.getElementById(id).clientWidth;
+    height = document.getElementById(id).clientHeight;
     renderer = new THREE.WebGLRenderer({
         antialias : true
     });
     renderer.setSize(width, height);
-    document.getElementById('canvas-frame').appendChild(renderer.domElement);
+    document.getElementById(id).appendChild(renderer.domElement);
     renderer.setClearColor(0xFFFFFF, 1.0);
 }
 
@@ -123,7 +123,12 @@ function initObject() {
                 break;
             case 2:
                 ph = pylon_body(l1,ph[2],h_p,height,n,radian,part_type);
-
+                body_list['type'] = 2;
+                body_list['part_type'] = part_type;
+                body_list['vertices'] = ph[0];
+                body_list['faces'] = ph[1];
+                body_list['height'] = height;
+                body_list['n'] = n;
 
                 //保存塔身的值
                 ph_body.push(ph);
@@ -148,12 +153,28 @@ function initObject() {
                 var direction = $(value).find("select[name='direction']").val();
 
                 ph = pylon_head(ph_body[position-1][2],ph_body[position-1][3],ph_h_p[position-1],ph_height[position-1],head_l1,n,radian,part_type,direction);
+                head_list['type'] = 3;
+                head_list['part_type'] = part_type;
+                head_list['vertices'] = ph[0];
+                head_list['faces'] = ph[1];
+                head_list['height'] = ph_height[position-1];
+                head_list['n'] = n;
+                head_list['head_l1'] = head_l1;
+                head_list['direction'] = direction;
 
                 //头部组件
                 var module_l1 = parseInt($(value).find("input[name='module_l1']").val());
                 var module_l2 = parseInt($(value).find("input[name='module_l2']").val());
                 var module_type = parseInt($(value).find("select[name='module_type']").val());
                 head_ph = pylon_head_other(ph[2],module_l1,module_l2,module_type,direction);
+                head_other_list['type'] = 4;
+                head_other_list['part_type'] = module_type;
+                head_other_list['vertices'] = head_ph[0];
+                head_other_list['faces'] = head_ph[1];
+                head_other_list['height'] = ph_height[position-1];
+                head_other_list['n'] = n;
+                head_other_list['head_l1'] = module_l1;
+                head_other_list['head_l2'] = module_l2;
 
                 break;
         }
@@ -178,9 +199,9 @@ function initObject() {
 }
 
 
-function threeStart() {
-    setParameters();
-    initThree();
+function threeStart(id) {
+    setParameters(id);
+    initThree(id);
     initCamera();
     initScene();
     initLight();

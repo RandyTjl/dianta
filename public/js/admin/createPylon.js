@@ -12,12 +12,18 @@ var l3 = '';    //底边宽度
 var h = '';     //底边高度
 var radian = '' //平面倾角;
 var tabula_type = '';   //横隔类型
-var tabula_list = new Array();//横隔的數組
-var bottom_list = new Array();//塔底的數組
-var body_list = new Array();//塔身的數組
-var head_list = new Array();//塔头的數組
-var head_other_list = new Array();//塔头其他的數組
 
+var tabula_list = new Array();//横隔的數組
+var tabula_list_temp = new Array();//横隔的數組
+var bottom_list = new Array();//塔底的數組
+var bottom_list_temp = new Array();
+var body_list = new Array();//塔身的數組
+var body_list_temp = new Array();//塔身的數組
+var head_list = new Array();//塔头的數組
+var head_list_temp = new Array();//塔头的數組
+var head_other_list = new Array();//塔头其他的數組
+var head_other_list_temp = new Array();//塔头其他的數組
+var len;//数组长度
 
 //获取设置模型参数
 function setParameters(id) {
@@ -101,20 +107,25 @@ function initObject() {
         switch (pylon_type){
             case 1:
                 ph = pylon_bottom(height,l1,l2,l3,n,radian);
-                bottom_list['type'] = 1;
-                bottom_list['part_type'] = 1;
-                bottom_list['vertices'] = ph[0];
-                bottom_list['faces'] = ph[1];
-                bottom_list['height'] = height;
-                bottom_list['n'] = n;
+                len = bottom_list.length;
+
+                bottom_list_temp['type'] = 1;
+                bottom_list_temp['part_type'] = 1;
+               /* bottom_list_temp['vertices'] = ph[0];
+                bottom_list_temp['faces'] = ph[1];*/
+                bottom_list_temp['height'] = height;
+                bottom_list_temp['n'] = n;
+                bottom_list[len] = bottom_list_temp;
 
                 //横隔
                 var plan = new THREE.PlaneGeometry();
                 var ta = tabula1(ph[2],tabula_type);
-                tabula_list['type'] = 5;
-                tabula_list['part_type'] = tabula_type;
-                tabula_list['vertices'] = ta[0];
-                tabula_list['faces'] = ta[1];
+                len = tabula_list.length;
+                tabula_list_temp['type'] = 5;
+                tabula_list_temp['part_type'] = tabula_type;
+               /* tabula_list_temp['vertices'] = ta[0];
+                tabula_list_temp['faces'] = ta[1];*/
+                tabula_list[len] = tabula_list_temp;
 
                 plan.vertices = ta[0];
                 plan.faces = ta[1];
@@ -123,12 +134,14 @@ function initObject() {
                 break;
             case 2:
                 ph = pylon_body(l1,ph[2],h_p,height,n,radian,part_type);
-                body_list['type'] = 2;
-                body_list['part_type'] = part_type;
-                body_list['vertices'] = ph[0];
-                body_list['faces'] = ph[1];
-                body_list['height'] = height;
-                body_list['n'] = n;
+                len = body_list.length;
+                body_list_temp['type'] = 2;
+                body_list_temp['part_type'] = part_type;
+                /*body_list_temp['vertices'] = ph[0];
+                body_list_temp['faces'] = ph[1];*/
+                body_list_temp['height'] = height;
+                body_list_temp['n'] = n;
+                body_list[len] = body_list_temp;
 
                 //保存塔身的值
                 ph_body.push(ph);
@@ -137,10 +150,12 @@ function initObject() {
                 //横隔
                 var plan = new THREE.PlaneGeometry();
                 var ta = tabula1(ph[2],tabula_type);
-                tabula_list['type'] = 5;
-                tabula_list['part_type'] = tabula_type;
-                tabula_list['vertices'] = ta[0];
-                tabula_list['faces'] = ta[1];
+                len = tabula_list.length;
+                tabula_list_temp['type'] = 5;
+                tabula_list_temp['part_type'] = tabula_type;
+                /*tabula_list_temp['vertices'] = ta[0];
+                tabula_list_temp['faces'] = ta[1];*/
+                tabula_list[len] = tabula_list_temp;
 
                 plan.vertices = ta[0];
                 plan.faces = ta[1];
@@ -153,29 +168,32 @@ function initObject() {
                 var direction = $(value).find("select[name='direction']").val();
 
                 ph = pylon_head(ph_body[position-1][2],ph_body[position-1][3],ph_h_p[position-1],ph_height[position-1],head_l1,n,radian,part_type,direction);
-                head_list['type'] = 3;
-                head_list['part_type'] = part_type;
-                head_list['vertices'] = ph[0];
-                head_list['faces'] = ph[1];
-                head_list['height'] = ph_height[position-1];
-                head_list['n'] = n;
-                head_list['head_l1'] = head_l1;
-                head_list['direction'] = direction;
+                len = head_list.length;
+                head_list_temp['type'] = 3;
+                head_list_temp['part_type'] = part_type;
+                /*head_list_temp['vertices'] = ph[0];
+                head_list_temp['faces'] = ph[1];*/
+                head_list_temp['height'] = ph_height[position-1];
+                head_list_temp['n'] = n;
+                head_list_temp['head_l1'] = head_l1;
+                head_list_temp['direction'] = direction;
+                head_list[len] = head_list_temp;
 
                 //头部组件
                 var module_l1 = parseInt($(value).find("input[name='module_l1']").val());
                 var module_l2 = parseInt($(value).find("input[name='module_l2']").val());
                 var module_type = parseInt($(value).find("select[name='module_type']").val());
                 head_ph = pylon_head_other(ph[2],module_l1,module_l2,module_type,direction);
-                head_other_list['type'] = 4;
-                head_other_list['part_type'] = module_type;
-                head_other_list['vertices'] = head_ph[0];
-                head_other_list['faces'] = head_ph[1];
-                head_other_list['height'] = ph_height[position-1];
-                head_other_list['n'] = n;
-                head_other_list['head_l1'] = module_l1;
-                head_other_list['head_l2'] = module_l2;
-
+                len = head_other_list.length;
+                head_other_list_temp['type'] = 4;
+                head_other_list_temp['part_type'] = module_type;
+                /*head_other_list_temp['vertices'] = head_ph[0];
+                head_other_list_temp['faces'] = head_ph[1];*/
+                head_other_list_temp['height'] = ph_height[position-1];
+                head_other_list_temp['n'] = n;
+                head_other_list_temp['head_l1'] = module_l1;
+                head_other_list_temp['head_l2'] = module_l2;
+                head_other_list[len] = head_other_list_temp;
                 break;
         }
 

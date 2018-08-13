@@ -29,6 +29,7 @@ class PylonController extends BaseController{
 
     public function store(){
         $data = Input::all();
+        var_dump($data);die;
 
         $a = Pylon::create($data);
 

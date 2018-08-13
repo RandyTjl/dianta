@@ -9,7 +9,7 @@
             <h3 class="card-title">详细信息</h3>
         </div>
         <form role="form">
-            <div class="card-body">
+            <div class="card-body" id="pylon_information">
                 <div class="form-group col-sm-12" >
                     <label for="name">电塔名称</label>
                     <input type="text"  name="name" class="form-control" id="name" placeholder="电塔名称" value="">
@@ -143,10 +143,6 @@
                                 <select class="form-control" name="direction" >
                                     <option>请选择</option>
                                     <option value="x" selected >x轴方向</option>
-                                    <option value="y">y轴方向</option>
-                                    <option value="z">z轴方向</option>
-                                    <option value="-x">-x轴方向</option>
-                                    <option value="-y">-y轴方向</option>
                                     <option value="-z">-z轴方向</option>
                                 </select>
                             </div>
@@ -189,11 +185,14 @@
     <script src="/js/three.min.js"></script>
     <script src="/js/pylon.js"></script>
     <script src="/js/admin/createPylon.js"></script>
+    <script src="/js/admin/jquery.md5.js"></script>
     <script>
 
         $().ready(function () {
             $("#save").on('click',function () {
-                var data = $("form").serialize();
+                tabula_list = getString(tabula_list);
+                var data = $("#pylon_information").find("input").serialize();
+                data = data + "&tabula_list="+tabula_list+"&bottom_list="+bottom_list+"&body_list="+body_list+"&head_list="+head_list+"&head_other_list="+head_other_list;
                 var url = '/pylons';
                 $.ajax({
                     'type':'POST',
@@ -217,13 +216,16 @@
 
                 })
             })
+            //展示模型
             $("#show").click(function () {
                 $("#canvas-frame").find("canvas").remove();
                 threeStart("canvas-frame");
             })
+            //关闭模型
             $("#close").click(function () {
                 $("#canvas-frame").find("canvas").remove();
             })
+
         })
 
         //添加html
@@ -253,6 +255,23 @@
             })
         }
 
+
+        function getString( objarr ){
+            var typeNO = objarr.length;
+            var tree = "[";
+            for (var i = 0 ;i < typeNO ; i++){
+                tree += "[";
+                tree +="'"+ objarr[i]['type']+"',";
+                tree +="'"+ objarr[i]['part_type']+"',";
+
+                tree += "]";
+                if(i<typeNO-1){
+                    tree+=",";
+                }
+            }
+            tree+="]";
+            return tree;
+        }
     </script>
 @endsection
 

@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Hash;
 class RoleController extends BaseController{
 
     public function index(){
-        $roles = Role::paginate(1);
+        $roles = Role::paginate(15);
         return view("role/index",['datas'=>$roles]);
 
     }

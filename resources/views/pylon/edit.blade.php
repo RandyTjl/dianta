@@ -200,7 +200,9 @@
             threeStart("canvas-frame");
 
             $("#save").on('click',function () {
-                var data = $("form").serialize();
+
+                var data = $("#pylon_information").find("input").serialize();
+                data = data + "&tabula_list="+JSON.stringify(tabula_list)+"&bottom_list="+JSON.stringify(bottom_list)+"&body_list="+JSON.stringify(body_list)+"&head_list="+JSON.stringify(head_list)+"&head_other_list="+JSON.stringify(head_other_list);
                 var url = '/pylons';
                 $.ajax({
                     'type':'POST',

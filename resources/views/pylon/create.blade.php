@@ -143,7 +143,7 @@
                                 <select class="form-control" name="direction" >
                                     <option>请选择</option>
                                     <option value="x" selected >x轴方向</option>
-                                    <option value="-z">-z轴方向</option>
+                                    <option value="-x">-x轴方向</option>
                                 </select>
                             </div>
                             <div class="form-group col-sm-6 pull-left" >
@@ -190,9 +190,8 @@
 
         $().ready(function () {
             $("#save").on('click',function () {
-                tabula_list = getString(tabula_list);
                 var data = $("#pylon_information").find("input").serialize();
-                data = data + "&tabula_list="+tabula_list+"&bottom_list="+bottom_list+"&body_list="+body_list+"&head_list="+head_list+"&head_other_list="+head_other_list;
+                data = data + "&tabula_list="+JSON.stringify(tabula_list)+"&bottom_list="+JSON.stringify(bottom_list)+"&body_list="+JSON.stringify(body_list)+"&head_list="+JSON.stringify(head_list)+"&head_other_list="+JSON.stringify(head_other_list);
                 var url = '/pylons';
                 $.ajax({
                     'type':'POST',
@@ -204,7 +203,7 @@
                     success:function (msg) {
                         close_load_html();
                         if(msg.code == 200){
-                            window.history.go(-1);
+                            window.location.href = document.referrer;
                         }else{
                             alert(msg.message);
                         }
@@ -256,22 +255,6 @@
         }
 
 
-        function getString( objarr ){
-            var typeNO = objarr.length;
-            var tree = "[";
-            for (var i = 0 ;i < typeNO ; i++){
-                tree += "[";
-                tree +="'"+ objarr[i]['type']+"',";
-                tree +="'"+ objarr[i]['part_type']+"',";
-
-                tree += "]";
-                if(i<typeNO-1){
-                    tree+=",";
-                }
-            }
-            tree+="]";
-            return tree;
-        }
     </script>
 @endsection
 

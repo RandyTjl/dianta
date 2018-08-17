@@ -1,7 +1,7 @@
 @extends('layouts.body')
 
-@section('title',"添加用户");
-@section('name',"url");
+@section('title',"添加用户")
+@section('name',"url")
 
 @section('content')
     <link rel="stylesheet" href="/plugins/iCheck/all.css">

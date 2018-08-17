@@ -1,7 +1,7 @@
 @extends('layouts.body')
 
-@section('title',"角色添加");
-@section('name',"url");
+@section('title',"角色添加")
+@section('name',"url")
 
 @section('content')
     <div class="card card-primary">

@@ -22,7 +22,6 @@ class PylonController extends BaseController{
     public function index(){
         $pylons = Pylon::paginate(15);
         return view("pylon/index",['datas'=>$pylons]);
-
     }
 
     public function create(){

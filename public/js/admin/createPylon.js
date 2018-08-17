@@ -24,10 +24,12 @@ var head_list_temp = {};//塔头的數組
 var head_other_list = new Array();//塔头其他的數組
 var head_other_list_temp = {};//塔头其他的數組
 var len;//数组长度
+var loopAnimal; // 循环动画
 
 //获取设置模型参数
 function setParameters(id) {
     //设置值为空
+    t = 0;
     tabula_list = new Array();//横隔的數組
     tabula_list_temp = {};//横隔的數組
     bottom_list = new Array();//塔底的數組
@@ -122,6 +124,7 @@ function initObject() {
             case 1:
                 ph = pylon_bottom(height,l1,l2,l3,n,radian);
                 len = bottom_list.length;
+                bottom_list_temp = {};
                 bottom_list_temp['type'] = 1;
                 bottom_list_temp['part_type'] = 1;
                 bottom_list_temp['vertices'] = ph[0];
@@ -134,6 +137,7 @@ function initObject() {
                 var plan = new THREE.PlaneGeometry();
                 var ta = tabula1(ph[2],tabula_type);
                 len = tabula_list.length;
+                tabula_list_temp = {};
                 tabula_list_temp['type'] = 5;
                 tabula_list_temp['part_type'] = tabula_type;
                 tabula_list_temp['vertices'] = ta[0];
@@ -144,9 +148,11 @@ function initObject() {
                 plan.faces = ta[1];
                 mesh1 = new THREE.Mesh( plan,material );
                 scene.add( mesh1 );
+                h_p = parseInt(h_p)+parseInt(height);
                 break;
             case 2:
                 ph = pylon_body(l1,ph[2],h_p,height,n,radian,part_type);
+                body_list_temp = {};
                 len = body_list.length;
                 body_list_temp['type'] = 2;
                 body_list_temp['part_type'] = part_type;
@@ -157,6 +163,7 @@ function initObject() {
                 body_list_temp['h_p'] = h_p;
                 body_list[len] = body_list_temp;
 
+
                 //保存塔身的值
                 ph_body.push(ph);
                 ph_height.push(height);
@@ -165,6 +172,7 @@ function initObject() {
                 var plan = new THREE.PlaneGeometry();
                 var ta = tabula1(ph[2],tabula_type);
                 len = tabula_list.length;
+                tabula_list_temp ={};
                 tabula_list_temp['type'] = 5;
                 tabula_list_temp['part_type'] = tabula_type;
                 tabula_list_temp['vertices'] = ta[0];
@@ -175,6 +183,7 @@ function initObject() {
                 plan.faces = ta[1];
                 mesh1 = new THREE.Mesh( plan,material );
                 scene.add( mesh1 );
+                h_p = parseInt(h_p)+parseInt(height);
                 break;
             case 3:
                 var position = parseInt($(value).find("input[name='position']").val());
@@ -183,6 +192,7 @@ function initObject() {
 
                 ph = pylon_head(ph_body[position-1][2],ph_body[position-1][3],ph_h_p[position-1],ph_height[position-1],head_l1,n,radian,part_type,direction);
                 len = head_list.length;
+                head_list_temp = {};
                 head_list_temp['type'] = 3;
                 head_list_temp['part_type'] = part_type;
                 head_list_temp['vertices'] = ph[0];
@@ -192,6 +202,7 @@ function initObject() {
                 head_list_temp['head_l1'] = head_l1;
                 head_list_temp['direction'] = direction;
                 head_list_temp['h_p'] = h_p;
+                head_list_temp['position'] = position;
                 head_list[len] = head_list_temp;
 
                 //头部组件
@@ -200,6 +211,7 @@ function initObject() {
                 var module_type = parseInt($(value).find("select[name='module_type']").val());
                 head_ph = pylon_head_other(ph[2],module_l1,module_l2,module_type,direction);
                 len = head_other_list.length;
+                head_other_list_temp ={};
                 head_other_list_temp['type'] = 4;
                 head_other_list_temp['part_type'] = module_type;
                 head_other_list_temp['vertices'] = head_ph[0];
@@ -212,13 +224,14 @@ function initObject() {
                 break;
         }
 
-        h_p = parseInt(h_p)+parseInt(height);
         //把坐标和索引放入立方体中
         cubeGeometry.vertices = ph[0];
         cubeGeometry.faces = ph[1];
 
         mesh = new THREE.Mesh( cubeGeometry,material );
         scene.add( mesh );
+
+
 
         if(head_ph){
             var cubeHead = new THREE.Geometry();
@@ -242,13 +255,13 @@ function threeStart(id) {
     animation();
 }
 
-//动漫
+//动漫效果
 function animation(){
     //renderer.clear();
     cameraRotate();
     renderer.render(scene, camera);
 
-    requestAnimationFrame(animation);
+    loopAnimal =  requestAnimationFrame(animation);
 }
 
 function x(){
@@ -286,4 +299,13 @@ function cameraRotate(){
     camera.position.y = 200;
     camera.lookAt(0,0,0);
     t = t+0.01;
+}
+
+function closeThree() {
+    if(renderer){
+        renderer.clear();
+        renderer = '';
+        cancelAnimationFrame(loopAnimal);
+    }
+
 }

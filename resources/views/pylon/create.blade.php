@@ -19,8 +19,8 @@
                     <input type="text" name="site" class="form-control" id="site" placeholder="电塔地址" value="">
                 </div>
                 <div class="form-group col-sm-6 pull-left" >
-                    <label for="Longitude">经度</label>
-                    <input type="text" name="Longitude" class="form-control" id="Longitude" placeholder="经度" value="">
+                    <label for="longitude">经度</label>
+                    <input type="text" name="longitude" class="form-control" id="longitude" placeholder="经度" value="">
                 </div>
                 <div class="form-group col-sm-6 pull-left">
                     <label for="latitude">纬度</label>
@@ -40,7 +40,7 @@
                 </div>
                 <div class="form-group col-sm-6 pull-left">
                     <label for="radian">塔竖面倾斜度</label>
-                    <input type="text" name="radian" class="form-control" id="radian" placeholder="倾斜弧度0.25 到 0.5之间" value="0.45">
+                    <input type="text" name="radian" class="form-control" id="radian" placeholder="倾斜弧度0.25 到 0.5之间" value="0.49">
                 </div>
             </div>
             <hr  style="height:1px;border:none;border-top:1px dashed #1c7430;" >
@@ -217,11 +217,13 @@
             })
             //展示模型
             $("#show").click(function () {
+                closeThree();
                 $("#canvas-frame").find("canvas").remove();
                 threeStart("canvas-frame");
             })
             //关闭模型
             $("#close").click(function () {
+                closeThree();
                 $("#canvas-frame").find("canvas").remove();
             })
 

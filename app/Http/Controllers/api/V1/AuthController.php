@@ -25,7 +25,7 @@ class AuthController extends BaseController{
         if($user && Hash::check($password,$user->password)){
    /*     if(Auth::guard('api')->attempt(['email' => $email, 'password' => $password])){*/
             $token_expiration = strtotime("+7 day");
-            $token = encrypt($email.time());
+            $token = md5($email.time());
             User::where('email',$email)->update(['token_expiration'=>$token_expiration,'api_token'=>$token]);
             $data['api_token'] = $token;
             return $this->success($data);

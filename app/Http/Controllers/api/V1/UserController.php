@@ -5,7 +5,7 @@
  * Date: 2018/7/11
  * Time: 17:22
  */
-namespace App\Http\Controllers\Web;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Api\BaseController;
 use App\Models\User;

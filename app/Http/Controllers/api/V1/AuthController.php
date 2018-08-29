@@ -17,10 +17,9 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends BaseController{
 
     public function login(Request $request){
-        /*$email = $request->input('email');
-        $password = $request->input('password');*/
-        $email = "tjl@qq.com";
-        $password = "123456";
+        $email = $request->input('email');
+        $password = $request->input('password');
+
         $user = User::where(['email' => $email])->first();
         if($user && Hash::check($password,$user->password)){
    /*     if(Auth::guard('api')->attempt(['email' => $email, 'password' => $password])){*/
@@ -31,6 +30,16 @@ class AuthController extends BaseController{
             return $this->success($data);
         }else{
             return $this->fail("200002");
+        }
+    }
+
+    public function logout(Request $request){
+        $user_id = $request->input('user_id');
+        $a = User::where('id',$user_id)->update(['token'=>'']);
+        if($a){
+            return $this->success();
+        }else{
+            return $this->fail("200007");
         }
     }
 

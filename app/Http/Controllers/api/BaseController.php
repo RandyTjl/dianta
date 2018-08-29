@@ -3,13 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use App\User;
+use Illuminate\Http\Request;
+use App\Models\User;
 
 class BaseController extends Controller
 {
 
     public function __construct(){
-
+        $request = new Request();
+        $apiToken = $request->header('apiToken');
+        $user = User::where('api_token',$apiToken)->first();
+        if(empty($user) || $user->token_expiration > time()){
+            return response()->json(['status'  => false, 'code'    => 300001, 'message' => config('apicode.code')[(int) 300001],]);
+        }
+        $this->user_id = $user->id;
     }
 
     protected function success($data = [])

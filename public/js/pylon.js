@@ -424,17 +424,19 @@ function pylon_body(l1,point,h_p,h,n1,radian,type) {
 				//}	
 			}
 			vertices1.push(new THREE.Vector3(xo1,yo1,zo1));
-			
+
 			temp = get_relative(vertices1,'x');
-			
-			po.push(temp[temp.length-1]);
-			po.push(new THREE.Vector3(-l3/2,h_p+h,-l2/2));
-			vertices1 = vertices1.concat(temp.reverse());
+            vertices1 = vertices1.concat(temp.reverse());
+
+            var po_temp = get_relative_all(po,'x');
+
+            po.push(po_temp[1]);
+            po.push(po_temp[0]);
+
 			//获得第三个面
-			
 			var vertices2 =  get_relative(vertices,'x').reverse();
+
 			//获得第四个面
-			
 			var vertices3 =  get_relative(vertices1,'z').reverse();
 			
 			vertices = vertices.concat(vertices1);

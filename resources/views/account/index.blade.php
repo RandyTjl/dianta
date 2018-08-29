@@ -1,7 +1,7 @@
 @extends('layouts.body')
 
-@section('title',"账号信息");
-@section('name',"url");
+@section('title',"账号信息")
+@section('name',"url")
 
 @section('content')
     <div class="card card-primary">

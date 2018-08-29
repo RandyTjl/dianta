@@ -29,7 +29,7 @@ class Pylon extends Model
      * @return mixed
      */
     public static function getPylon($pylon_id){
-        $pylon = self::where("id",$pylon_id)->get()->toArray();
+        $pylon = self::where("id",$pylon_id)->first();
         return $pylon;
     }
 

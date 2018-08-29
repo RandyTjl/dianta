@@ -20,7 +20,7 @@ class User extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password','is_del'
+        'name', 'email', 'password','is_del','api_token'
     ];
 
     /**

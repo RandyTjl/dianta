@@ -1,7 +1,7 @@
 @extends('layouts.body')
 
-@section('title',"菜单管理");
-@section('name',"菜单");
+@section('title',"菜单管理")
+@section('name',"菜单")
 
 @section('content')
     <div class="row">

@@ -1,7 +1,7 @@
 @extends('layouts.body')
 
-@section('title',"用户信息");
-@section('name',"url");
+@section('title',"用户信息")
+@section('name',"url")
 
 @section('content')
     <!-- DataTables -->

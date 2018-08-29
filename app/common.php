@@ -133,12 +133,17 @@ function array_field($arrays){
 
 //得到菜单的最上层的menu_id
 function get_top_menu_id($datas,$menu_id){
-   foreach ($datas as $data){
-        $a = check_menu_exist($data,$menu_id);
-       if($a !== false){
-           return $data['id'];
-       }
-   }
+    if(count($datas)){
+        foreach ($datas as $data){
+            $a = check_menu_exist($data,$menu_id);
+            if($a !== false){
+                return $data['id'];
+            }
+        }
+    }else{
+        return 1;
+    }
+
 }
 
 /**

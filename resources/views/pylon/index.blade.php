@@ -1,7 +1,7 @@
 @extends('layouts.body')
 
-@section('title',"电塔信息");
-@section('name',"url");
+@section('title',"电塔信息")
+@section('name',"url")
 
 @section('content')
 
@@ -22,7 +22,7 @@
                         <th style="width: 20%">电塔名称</th>
                         <th style="width: 20%">创建者</th>
                         <th style="width: 20%">地址</th>
-                        <th style="width: 20%">倾斜度</th>
+                        <th style="width: 10%">倾斜度</th>
                         <th>操作</th>
                     </tr>
                     </thead>
@@ -35,8 +35,8 @@
                         <td>{{$pylon->site}}</td>
                         <td>{{$pylon->radian}}</td>
                         <td>
-                            <button type="button" class="btn btn-btn-app btn-primary " id="edit"><i class="fa fa-edit">修改</i></button>
-                            <button type="button" class="btn btn-btn-app btn-danger" id="delete"><i class="fa fa-trash-o">删除</i></button>
+                            <button type="button" class="btn btn-btn-app btn-primary " onclick="pylon_edit(this)"><i class="fa fa-edit">修改</i></button>
+                            <button type="button" class="btn btn-btn-app btn-danger" onclick="pylon_delete(this)"><i class="fa fa-trash-o">删除</i></button>
                         </td>
                     </tr>
                     @endforeach
@@ -54,27 +54,27 @@
                 var url = "pylons/create";
                 window.location.href = url;
             })
-            
-            $("#edit").on('click',function () {
-                var url = "/pylons/" +$(this).parents('tr').find('td').first().text()+ "/edit";
-                window.location.href = url;
-            })
 
-            $("#delete").on('click',function () {
-                var url = "/pylons/"+$(this).parents('tr').find('td').first().text();
-                $.ajax({
-                    type:"DELETE",
-                    url:url,
-                    success:function (msg) {
-                        if(msg.code == 200){
-                            alert("删除成功");
-                            window.location.reload();
-                        }else{
-                            alert(msg.message);
-                        }
-                    }
-                })
-            })
         })
+        function pylon_edit(obj) {
+            var url = "/pylons/" +$(obj).parents('tr').find('td').first().text()+ "/edit";
+            window.location.href = url;
+        }
+        
+        function pylon_delete(obj) {
+            var url = "/pylons/"+$(obj).parents('tr').find('td').first().text();
+            $.ajax({
+                type:"DELETE",
+                url:url,
+                success:function (msg) {
+                    if(msg.code == 200){
+                        alert("删除成功");
+                        window.location.reload();
+                    }else{
+                        alert(msg.message);
+                    }
+                }
+            })
+        }
     </script>
 @endsection

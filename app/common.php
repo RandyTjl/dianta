@@ -218,5 +218,26 @@ function role_list($role_ids=[]){
     return $html;
 }
 
-
+/**
+发送邮件
+to	必需。规定邮件的接收者。
+subject	必需。规定邮件的主题。该参数不能包含任何换行字符。
+message	必需。规定要发送的消息。
+headers	必需。规定额外的报头，比如 From, Cc 以及 Bcc。
+parameters	必需。规定 sendmail 程序的额外参数。
+**/
+function sendMail($to,$subject,$message,$headers,$parameters){
+	$from = $headers;
+	$to = $to;
+	$title = $subject;
+	$subject = "=?UTF-8?B?".base64_encode($title)."?="; //解决标题中文乱码
+	$body = $message;
+	// 实现邮件内容支持html
+	$headers[] = "From: $from";
+	$headers[] = "X-Mailer: PHP";
+	$headers[] = "MIME-Version: 1.0";
+	$headers[] = "Content-type: text/html; charset=utf8";
+	$headers[] = "Reply-To: $from"; 
+	mail($to, $subject, $body, implode("\r\n", $headers), "-f $from");
+}
 

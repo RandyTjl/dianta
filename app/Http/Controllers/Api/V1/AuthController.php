@@ -16,15 +16,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller{
 
-    public function __construct(){
-        $request = new Request();
-        $apiToken = $request->header('apiToken');
-        $user = User::where('api_token',$apiToken)->first();
-        if(empty($user) || $user->token_expiration > time()){
-            return response()->json(['status'  => false, 'code'    => 300001, 'message' => config('apicode.code')[(int) 300001],]);
-        }
-        $this->user_id = $user->id;
-    }
+
 
     protected function success($data = [])
     {
@@ -35,7 +27,17 @@ class AuthController extends Controller{
             'data'    => $data,
         ]);
     }
-    
+
+    protected function fail($code, $data = [])
+    {
+        return response()->json([
+            'status'  => false,
+            'code'    => $code,
+            'message' => config('apicode.code')[(int) $code],
+            'data'    => $data,
+        ]);
+    }
+
     public function login(Request $request){
         $email = $request->input('email');
         $password = $request->input('password');

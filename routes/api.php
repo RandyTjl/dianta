@@ -15,7 +15,7 @@ use Illuminate\Http\Request;
 
 
 Route::group(['middleware' => 'api','namespace'=>'Api\V1','prefix'=>"v1"], function () {
-    Route::get('/auth/login',"AuthController@login");
+    Route::post('/auth/login',"AuthController@login");
 	Route::post('/auth/verifyApiToken',"AuthController@verifyApiToken");
     Route::group(['middleware' => 'apiToken'],function (){
         Route::resource('/users',"UserController");

@@ -69,8 +69,9 @@ class AuthController extends Controller{
 	public function verifyApiToken(Request $request){
 		$apiToken = $request->input('apiToken');
         $user = User::where('api_token',$apiToken)->first();
-        if(empty($user) || $user->token_expiration > time()){
-            return response()->json(['status'  => true, 'code'    => 300001, 'message' => config('apicode.code')[(int) 300001],]);
+
+        if(empty($user) || $user->token_expiration < time()){
+            return response()->json(['status'  => true, 'code'    => 300002, 'message' => config('apicode.code')[(int) 300002],]);
         }
         
 		return response()->json(['status'  => true, 'code'    => 200, 'message' => config('apicode.code')[(int) 200],'data'=>$user]);

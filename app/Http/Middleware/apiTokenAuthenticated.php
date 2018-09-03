@@ -23,7 +23,7 @@ class apiTokenAuthenticated
         $request = new Request();
         $apiToken = $request->header('apiToken');
         if(empty($apiToken)){
-            return response()->json(['status'  => false, 'code'    => 300002, 'message' => config('apicode.code')[(int) 300002],]);
+            return response()->json(['status'  => false, 'code'    => 300001, 'message' => config('apicode.code')[(int) 300001],]);
         }
 
         return $next($request);

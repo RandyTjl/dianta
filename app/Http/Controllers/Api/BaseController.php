@@ -14,7 +14,7 @@ class BaseController extends Controller
         $apiToken = $request->header('apiToken');
         $user = User::where('api_token',$apiToken)->first();
         if(empty($user) || $user->token_expiration < time()){
-            return response()->json(['status'  => false, 'code'    => 300001, 'message' => config('apicode.code')[(int) 300001],]);
+            return response()->json(['status'  => false, 'code'    => 300002, 'message' => config('apicode.code')[(int) 300002],]);
         }
         $this->user_id = $user->id;
     }

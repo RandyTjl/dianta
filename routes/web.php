@@ -27,6 +27,9 @@ Route::group(['middleware' => 'Web','namespace'=>'Web'], function () {
             return view('index/index');
         });
 
+        Route::resource('/menus',"MenuController");
+        Route::resource('/pylons',"PylonController");
+
         Route::resource('/account',"AccountController");
         Route::resource('/users',"UserController");
         Route::resource('/roles',"RoleController");

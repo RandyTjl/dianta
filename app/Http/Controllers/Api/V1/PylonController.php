@@ -57,7 +57,7 @@ class PylonController extends BaseController{
                     $datas['header_other'][] = $structure;
                     break;
                 case 5:
-                    $datas['tabula'] = $structure;
+                    $datas['tabula'][] = $structure;
                     break;
             }
         }

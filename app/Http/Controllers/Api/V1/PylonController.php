@@ -45,7 +45,7 @@ class PylonController extends BaseController{
         foreach ($structures as $k=>$structure){
             switch ($structure['type']){
                 case 1:
-                    $datas['bottom'] = $structure;
+                    $datas['bottom'][] = $structure;
                     break;
                 case 2:
                     $datas['body'][] = $structure;

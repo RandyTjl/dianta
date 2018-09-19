@@ -27,7 +27,7 @@ class PylonController extends BaseController{
     public function index(){
         $type = Input::get('type');
         if($type){
-            $longitude = Input::get('latitude');
+            $longitude = Input::get('longitude');
             $latitude = Input::get('latitude');
             if(empty($longitude) || empty($longitude)){
                 return $this->fail(200001);

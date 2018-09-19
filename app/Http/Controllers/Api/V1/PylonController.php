@@ -25,7 +25,32 @@ class PylonController extends BaseController{
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(){
-        $pylon = Pylon::where('is_del','<>','1')->paginate(10);
+        $type = Input::get('type');
+        if($type){
+            $longitude = Input::get('latitude');
+            $latitude = Input::get('latitude');
+            if(empty($longitude) || empty($longitude)){
+                return $this->fail(200001);
+            }
+            switch ($type){
+                case 'nearby': //获得附近的电塔
+                    //使用此函数计算得到结果后，带入sql查询。
+                    $squares = returnSquarePoint($longitude, $latitude,3);
+                    $pylon = Pylon::where('is_del','<>','1')
+                            ->where('longitude','>',$squares['left-top']['lng'])
+                            ->where('longitude','<',$squares['right-bottom']['lng'])
+                            ->where('latitude','<',$squares['left-top']['lat'])
+                            ->where('latitude','>',$squares['right-bottom']['lat'])
+                            ->paginate(10);
+                    break;
+                case 'abnormal':
+
+                    break;
+            }
+        }else{
+            $pylon = Pylon::where('is_del','<>','1')->paginate(10);
+        }
+
         if(empty($pylon)){
             return $this->fail(200010);
         }

@@ -13,6 +13,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Input;
 
 class AuthController extends Controller{
 
@@ -58,7 +59,7 @@ class AuthController extends Controller{
 
     public function logout(Request $request){
         $user_id = $request->input('user_id');
-        $a = User::where('id',$user_id)->update(['token'=>'']);
+        $a = User::where('id',$user_id)->update(['api_token'=>'']);
         if($a){
             return $this->success();
         }else{
@@ -77,5 +78,22 @@ class AuthController extends Controller{
 		return response()->json(['status'  => true, 'code'    => 200, 'message' => config('apicode.code')[(int) 200],'data'=>$user]);
 	}
 
+	public function updatePwd(){
+        $email = Input::get('email');
+        $oldPwd = Input::get('oldPwd');
+        $newPwd = Input::get('newPwd');
+        $newPwd1 = Input::get('newPwd1');
+        $user = User::where(['email' => $email])->first();
+        if($newPwd != $newPwd1){
+            return $this->fail(200011);
+        }
+        if($user && Hash::check($oldPwd,$user->password)){
+            $password = Hash::make($newPwd);
+            User::where('email',$email)->update(['password'=>$password]);
+            return $this->success();
+        }else{
+            return $this->fail(200008);
+        }
+    }
 
 }

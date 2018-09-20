@@ -138,7 +138,7 @@ class AuthController extends Controller{
         $password = Hash::make($password);
         $a = User::where('email',$email)->update(['password'=>$password]);
         if(!$a){
-            return $this->fail('200005');
+            return $this->fail(200005);
         }
 
         return $this->success();

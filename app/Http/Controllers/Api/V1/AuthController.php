@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Redis;
 
 class AuthController extends Controller{
 
@@ -94,6 +96,52 @@ class AuthController extends Controller{
         }else{
             return $this->fail(200008);
         }
+    }
+
+    /**
+     * 获得忘记密码的验证码
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getForgetCode(){
+        $email = Input::get('email');
+        $data = [
+            'to' => $email,
+            'subject' => "邮箱验证码",
+        ];
+        $code = getCode(4,2);
+
+        $msg = "您的验证码是".$code.',5分钟后过期';
+
+        Mail::raw($msg, function ($message) use ($data) {
+            $message ->to($data['to'])->subject($data['subject']);
+        });
+        if(count(Mail::failures()) < 1){
+            Redis::setex( $email , 300 , $code );
+            return $this->success();
+        }else{
+            return $this->fail(200012);
+        }
+    }
+
+    /**
+     *忘记密码更新密码
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function forgetPwdUpdate(){
+        $email = Input::get('email');
+        $password = Input::get('password');
+        $code = Input::get('code');
+        if($code != Redis::get($email)){
+            return $this->fail(200013);
+        }
+
+        $password = Hash::make($password);
+        $a = User::where('email',$email)->update(['password'=>$password]);
+        if(!$a){
+            return $this->fail('200005');
+        }
+
+        return $this->success();
     }
 
 }

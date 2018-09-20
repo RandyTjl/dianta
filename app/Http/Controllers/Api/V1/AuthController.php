@@ -110,7 +110,7 @@ class AuthController extends Controller{
         ];
         $code = getCode(4,2);
 
-        $msg = "您的验证码是".$code.',5分钟后过期';
+        $msg = "您的验证码是".$code.',将在5分钟后过期';
 
         Mail::raw($msg, function ($message) use ($data) {
             $message ->to($data['to'])->subject($data['subject']);
@@ -131,10 +131,11 @@ class AuthController extends Controller{
         $email = Input::get('email');
         $password = Input::get('password');
         $code = Input::get('code');
-        if($code != Redis::get($email)){
+
+        if(strcasecmp($code,Redis::get($email)) != 0){
             return $this->fail(200013);
         }
-
+		
         $password = Hash::make($password);
         $a = User::where('email',$email)->update(['password'=>$password]);
         if(!$a){
